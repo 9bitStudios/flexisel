@@ -19,6 +19,7 @@
     		autoPlay: false,
     		autoPlaySpeed: 3000,    		
     		pauseOnHover: true,
+			setMaxWidthAndHeight: true,
     		enableResponsiveBreakpoints: false,
     		responsiveBreakpoints: { 
 	    		portrait: { 
@@ -93,7 +94,14 @@
    			 	object.addClass("nbs-flexisel-ul");
    			 	object.wrap("<div class='nbs-flexisel-container'><div class='nbs-flexisel-inner'></div></div>");
    			 	object.find("li").addClass("nbs-flexisel-item");
-   			 
+ 
+   			 	if(settings.setMaxWidthAndHeight) {
+	   			 	var baseWidth = $(".nbs-flexisel-item > img").width();
+	   			 	var baseHeight = $(".nbs-flexisel-item > img").height();
+	   			 	$(".nbs-flexisel-item > img").css("max-width", baseWidth);
+	   			 	$(".nbs-flexisel-item > img").css("max-height", baseHeight);
+   			 	}
+ 
    			 	$("<div class='nbs-flexisel-nav-left'></div><div class='nbs-flexisel-nav-right'></div>").insertAfter(object);
    			 	var cloneContent = object.children().clone();
    			 	object.append(cloneContent);
