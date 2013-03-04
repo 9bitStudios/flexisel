@@ -12,6 +12,10 @@ height:20px;
 clear:both;
 }
 
+#flexiselDemo1, #flexiselDemo2, #flexiselDemo3 {
+display:none;
+}
+
 .nbs-flexisel-container {
 	position:relative;
 	max-width:100%;
@@ -51,17 +55,13 @@ clear:both;
 	line-height:0px;
 }
 .nbs-flexisel-item > img {
- 
 	width: 100%;
-  
 	cursor: pointer;
-  
 	positon: relative;
-  
 	margin-top: 10px;
-  
 	margin-bottom: 10px;
-
+	max-width:100px;
+	max-height:45px;
 }
 
 /*** Navigation ***/

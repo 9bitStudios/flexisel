@@ -19,7 +19,7 @@
     		autoPlay: false,
     		autoPlaySpeed: 3000,    		
     		pauseOnHover: true,
-			setMaxWidthAndHeight: true,
+			setMaxWidthAndHeight: false,
     		enableResponsiveBreakpoints: false,
     		responsiveBreakpoints: { 
 	    		portrait: { 
