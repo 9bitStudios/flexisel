@@ -30,7 +30,7 @@
 
 						<a class="nbs-button-large nbs-button-brown" href="https://github.com/9bitStudios/flexisel/">View on GitHub</a>					
 						
-						<a class="nbs-button-large nbs-button-brown" href="https://github.com/9bitStudios/flexisel/zipball/master">Download this project as a .zip file</a>
+						<a class="nbs-button-large nbs-button-brown" href="https://github.com/9bitStudios/flexisel/zipball/master">Download .zip</a>
 
 						<div class="clearout"></div>
 									
@@ -120,7 +120,7 @@
 
 				<div class="clearout"></div>
 				    
-				 <script type="text/javascript">
+				<script type="text/javascript">
 
 				$(window).load(function() {
 					$("#flexiselDemo1").flexisel();
@@ -172,18 +172,46 @@
 			</div>
 		
 		</div>			
-		
-		<div class="clearout"></div>
 
-		<script type="text/javascript">
-
-		</script>		
-		
-		<div class="clearout"></div>
 
 		<div class="row">	
 			<div class="twelve columns">
 				<p>All you have to do is call flexisel on your unordered list containing images. Call it on the $(window).load event (as opposed to the $(document).ready event) so that Flexisel can calculate the width of the images and figure out how to space them out properly. For example...</p>
+
+				<code>&lt;script type="text/javascript"&gt;<br />
+				$(window).load(function() {<br />
+				&nbsp;&nbsp;$("#myCarousel").flexisel();<br />
+				});<br />
+				&lt;/script></code>
+
+				<p>Below is how you'd call it passing in all the options....</p>
+
+				<code>&lt;script type=&quot;text/javascript&quot;&gt;<br />
+				$(window).load(function() {<br />
+				&nbsp;&nbsp;$("#myCarousel").flexisel(<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 4,<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;animationSpeed: 200,<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;autoPlay: false,<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;autoPlaySpeed: 3000,<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;pauseOnHover: true,<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;enableResponsiveBreakpoints: true,<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;responsiveBreakpoints: {<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portrait: {<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changePoint:480,<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 1<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, <br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;landscape: {<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changePoint:640,<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 2<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tablet: {<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changePoint:768,<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 3<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+				&nbsp;&nbsp;);<br />
+				});<br />
+				&lt;/script&gt;</code>
 
 
 				<h3>Options</h3>	
