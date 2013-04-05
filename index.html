@@ -35,24 +35,14 @@
 						<div class="clearout"></div>
 									
   						<!-- GIT HUB SHARING -->
-
-						<iframe src="http://ghbtns.com/github-btn.html?user=9bitStudios&repo=flexisel&type=follow"
-  allowtransparency="true" frameborder="0" scrolling="0" width="145" height="20"></iframe>
-
-  						<iframe src="http://ghbtns.com/github-btn.html?user=9bitStudios&repo=flexisel&type=fork"
-  allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
-
-    					<iframe src="http://ghbtns.com/github-btn.html?user=9bitStudios&repo=flexisel&type=watch"
-  allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
+						<iframe src="http://ghbtns.com/github-btn.html?user=9bitStudios&repo=flexisel&type=follow" allowtransparency="true" frameborder="0" scrolling="0" width="145" height="20"></iframe>
+  						<iframe src="http://ghbtns.com/github-btn.html?user=9bitStudios&repo=flexisel&type=fork" allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
+    					<iframe src="http://ghbtns.com/github-btn.html?user=9bitStudios&repo=flexisel&type=watch" allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
 
   						<!-- SOCIAL SHARING -->
-
 						<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F9bitStudios.github.com%2Fflexisel&amp;send=false&amp;layout=button_count&amp;width=110&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:110px; height:21px;" allowTransparency="true"></iframe>
-
 						<a href="https://twitter.com/share" class="twitter-share-button" data-via="9bitStudios">Tweet</a>
-
 						<div class="g-plusone" data-size="medium"></div>
-
 						<script type="text/javascript">
 
 							/** Twitter **/
@@ -119,7 +109,9 @@
 				</ul>    
 
 				<div class="clearout"></div>
-				    
+				
+				<p> For documentation on how to use and availalbe options... <a href="https://github.com/9bitStudios/flexisel/">see the repo on GitHub</a>
+				
 				<script type="text/javascript">
 
 				$(window).load(function() {
@@ -167,156 +159,11 @@
 				    
 				});
 				</script>
-
 				
 			</div>
 		
 		</div>			
 
-
-		<div class="row">	
-			<div class="twelve columns">
-				<p>All you have to do is call flexisel on your unordered list containing images. Call it on the $(window).load event (as opposed to the $(document).ready event) so that Flexisel can calculate the width of the images and figure out how to space them out properly. For example...</p>
-
-				<code>&lt;script type="text/javascript"&gt;<br />
-				$(window).load(function() {<br />
-				&nbsp;&nbsp;$("#myCarousel").flexisel();<br />
-				});<br />
-				&lt;/script></code>
-
-				<p>Below is how you'd call it passing in all the options....</p>
-
-				<code>&lt;script type=&quot;text/javascript&quot;&gt;<br />
-				$(window).load(function() {<br />
-				&nbsp;&nbsp;$("#myCarousel").flexisel(<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 4,<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;animationSpeed: 200,<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;autoPlay: false,<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;autoPlaySpeed: 3000,<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;pauseOnHover: true,<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;enableResponsiveBreakpoints: true,<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;responsiveBreakpoints: {<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portrait: {<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changePoint:480,<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 1<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, <br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;landscape: {<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changePoint:640,<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 2<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tablet: {<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changePoint:768,<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 3<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-				&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-				&nbsp;&nbsp;);<br />
-				});<br />
-				&lt;/script&gt;</code>
-
-
-				<h3>Options</h3>	
-				
-				<p>Below is a listing of options your can set....</p>
-
-				<table class="box-table">
-					<tbody>
-						<tr>
-							<th>Option</th>
-							<th>Values</th>
-							<th>Default Value</th>
-							<th>Description</th>
-							<th>Example</th>
-						</tr>
-						<tr>
-							<td class="script"><strong>visibleItems</strong></td>
-							<td class="script"><em>Integer</em></td>
-							<td class="script">4</td>
-							<td>Sets the initial number of visible items in the carousel</td>
-							<td class="script">visibleItems: 5</td>
-						</tr>
-						<tr>
-							<td class="script"><strong>animationSpeed</strong></td>
-							<td class="script"><em>Integer (in Milliseconds)</em></td>
-							<td class="script">200</td>
-							<td>Sets the "speed" of the animation when the carousel navigates right or left.</td>
-							<td class="script">animationSpeed: 1000</td>
-						</tr>
-						<tr>
-							<td class="script"><strong>autoPlay</strong></td>
-							<td class="script"><em>Boolean</em></td>
-							<td class="script">false</td>
-							<td>Sets whether or not the carousel automatically scrolls items on a timer</td>
-							<td class="script">autoPlay: true</td>
-						</tr>
-						<tr>
-							<td class="script"><strong>autoPlaySpeed</strong></td>
-							<td class="script"><em>Integer (in milliseconds)</em></td>
-							<td class="script">3000</td>
-							<td>Sets the interval by which items scroll when autoplaying. Note that the autoPlay value has to be set to true for this value to be applicable</td>
-							<td class="script">autoPlaySpeed: 5000</td>
-						</tr>
-						<tr>
-							<td class="script"><strong>pauseOnHover</strong></td>
-							<td class="script"><em>Boolean</em></td>
-							<td class="script">true</td>
-							<td>Sets whether or not to pause the carousel on hover if playing. Note that the autoPlay value has to be set to true for this to be applicable</td>
-							<td class="script">pauseOnHover: false</td>
-						</tr>
-						<tr>
-							<td class="script"><strong>enableResponsiveBreakpoints</strong></td>
-							<td class="script"><em>Boolean</em></td>
-							<td class="script">false</td>
-							<td>Sets whether or not to enable responsive breakpoints</td>
-							<td class="script">enableResponsiveBreakpoints: true</td>
-						</tr>
-						<tr>
-							<td class="script"><strong>responsiveBreakpoints</strong></td>
-							<td class="script"><em>Object</em></td>
-							<td class="script">
-							responsiveBreakpoints: {<br>
-							&nbsp;&nbsp;portrait: {<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;changePoint:480,<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 1<br>
-							&nbsp;&nbsp;},<br>
-							&nbsp;&nbsp;landscape: {<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;changePoint:640,<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 2<br>
-							&nbsp;&nbsp;},<br>
-							&nbsp;&nbsp;tablet: {<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;changePoint:768,<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 3<br>
-							&nbsp;&nbsp;}<br>
-							}
-							</td>
-							<td>This is an object that specifies responsive breakpoints.  In order for this to be enabled the enableResponsiveBreakpoints setting must be set to true. There are 3 different responsive events you can specify (portrait, landscape, and tablet). The changePoint of a responsiveBreakpoint is essentially the point when a screen width reaches or falls below the particular width set in the object. The visibleItems setting specifies the number of items that will be visible for that responsive event.</td>
-							<td class="script">
-							responsiveBreakpoints: {<br>
-							&nbsp;&nbsp;portrait: {<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;changePoint:480,<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 1<br>
-							&nbsp;&nbsp;},<br>
-							&nbsp;&nbsp;landscape: {<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;changePoint:640,<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 2<br>
-							&nbsp;&nbsp;},<br>
-							&nbsp;&nbsp;tablet: {<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;changePoint:768,<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;visibleItems: 3<br>
-							&nbsp;&nbsp;}<br>
-							}
-							</td>
-						</tr>						
-					</tbody>
-				</table>	
-
-				<div class=""></div>
-
-				<p>The responsiveBreakpoints object sets the threshold of where the screen width falls below a certain width. So for example, the portrait responsive breakpoint will be applied to the carousel when the screen width is less than the changePoint value set for portrait. The number of items shown in this state will be whatever value is set for visibleItems. Usually, because the portrait responsive event is used to show portrait views on mobile phones, 1 is a good value to set here.</p>
-
-				<p>The landscape responsive breakpoint will be applied when the screen width is greater than the width of the portrait changePoint value, but less that the width of the tablet changePoint value. Likewise, when the screen width falls below the tablet changePoint, the number of visibleItems set for the tablet event will be shown.</p>
-
-			</div>
-		</div>
 	</div>
 	
 	<footer>
@@ -330,6 +177,7 @@
 			</div>
 		</div>		
 	</footer>
+	
 	
 </body>
 </html>
