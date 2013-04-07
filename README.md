@@ -49,7 +49,7 @@ Below is a listing of some basic options you can set...
 | Option | Value | Default Value | Description | Example |
 | --- | --- | --- | --- | --- |
 visibleItems | Integer | 4 | Sets the initial number of visible items in the carousel | visibleItems: 5
-animationSpeed | Integer (in Milliseconds) | 200 | Sets the "speed" of the animation when the carousel navigates right or left.  animationSpeed: 1000 
+animationSpeed | Integer (in Milliseconds) | 200 | Sets the "speed" of the animation when the carousel navigates right or left. | animationSpeed: 1000 
 autoPlay | Boolean | false | Sets whether or not the carousel automatically scrolls items on a timer | autoPlay: true
 autoPlaySpeed | Integer (in milliseconds) | 3000 | Sets the interval by which items scroll when autoplaying. Note that the autoPlay value has to be set to true for this value to be applicable | autoPlaySpeed: 5000
 pauseOnHover | Boolean | true | Sets whether or not to pause the carousel on hover if playing. Note that the autoPlay value has to be set to true for this to be applicable | pauseOnHover: false
