@@ -20,7 +20,7 @@
 			setMaxWidthAndHeight: false,
     		enableResponsiveBreakpoints: true,
     		responsiveBreakpoints: { 
-	    		smallMedQuer: { 
+	    		lowMedQuer: { 
 	    			changePoint:1213,
 	    			visibleItems: 4
 	    		}, 
@@ -152,10 +152,10 @@
 				var contentWidth = $('html').width();
 				
 				if(settings.enableResponsiveBreakpoints == true) {
-					if(contentWidth < settings.responsiveBreakpoints.smallMedQuer.changePoint) {
-						itemsVisible = settings.responsiveBreakpoints.smallMedQuer.visibleItems;
+					if(contentWidth < settings.responsiveBreakpoints.lowMedQuer.changePoint) {
+						itemsVisible = settings.responsiveBreakpoints.lowMedQuer.visibleItems;
 					}
-					else if(contentWidth > settings.responsiveBreakpoints.smallMedQuer.changePoint && contentWidth < settings.responsiveBreakpoints.middleMedQuer.changePoint) {
+					else if(contentWidth > settings.responsiveBreakpoints.lowMedQuer.changePoint && contentWidth < settings.responsiveBreakpoints.middleMedQuer.changePoint) {
 						itemsVisible = settings.responsiveBreakpoints.middleMedQuer.visibleItems;
 					}
 					else if(contentWidth > settings.responsiveBreakpoints.middleMedQuer.changePoint && contentWidth < settings.responsiveBreakpoints.highMedQuer.changePoint) {
