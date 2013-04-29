@@ -12,7 +12,7 @@ height:20px;
 clear:both;
 }
 
-#flexiselDemo1, #flexiselDemo2, #flexiselDemo3 {
+#flexiselDemo1, #flexiselDemo2, #flexiselDemo3, .flexisel {
 display:none;
 }
 
@@ -85,3 +85,30 @@ display:none;
 	right: 5px;
 	background: url(../images/button-next.png) no-repeat;
 }
+.media-queris {
+	margin: 0 auto;
+}
+@media (max-width: 1213px) {
+	.media-queris {
+		width: 1012px;
+	}
+}
+
+@media (max-width: 1450px) and (min-width: 1214px) {
+	.media-queris {
+		width: 1245px;
+	}
+}
+
+@media (max-width: 1680px) and (min-width: 1451px) {
+	.media-queris {
+		width: 1478px;
+	}
+}
+
+@media (min-width: 1681px){
+	.media-queris {
+		width: 1712px;
+	}
+}
+
