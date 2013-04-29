@@ -96,10 +96,10 @@
    			 	object.find("li").addClass("nbs-flexisel-item");
  
    			 	if(settings.setMaxWidthAndHeight) {
-	   			 	var baseWidth = $(".nbs-flexisel-item > img").width();
-	   			 	var baseHeight = $(".nbs-flexisel-item > img").height();
-	   			 	$(".nbs-flexisel-item > img").css("max-width", baseWidth);
-	   			 	$(".nbs-flexisel-item > img").css("max-height", baseHeight);
+	   			 	var baseWidth = $(".nbs-flexisel-item img").width();
+	   			 	var baseHeight = $(".nbs-flexisel-item img").height();
+	   			 	$(".nbs-flexisel-item img").css("max-width", baseWidth);
+	   			 	$(".nbs-flexisel-item img").css("max-height", baseHeight);
    			 	}
  
    			 	$("<div class='nbs-flexisel-nav-left'></div><div class='nbs-flexisel-nav-right'></div>").insertAfter(object);

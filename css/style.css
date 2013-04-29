@@ -54,7 +54,7 @@ display:none;
 	position:relative;
 	line-height:0px;
 }
-.nbs-flexisel-item > img {
+.nbs-flexisel-item img {
 	width: 100%;
 	cursor: pointer;
 	positon: relative;
