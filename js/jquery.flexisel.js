@@ -8,39 +8,35 @@
 * Free to use and abuse under the MIT license.
 * http://www.opensource.org/licenses/mit-license.php
 */
-
 (function ($) {
-
     $.fn.flexisel = function (options) {
-
+    	return this.each(function () {
         var defaults = $.extend({
-    		visibleItems: 4,
+    		visibleItems: 7,
     		animationSpeed: 200,
     		autoPlay: false,
     		autoPlaySpeed: 3000,    		
     		pauseOnHover: true,
 			setMaxWidthAndHeight: false,
-    		enableResponsiveBreakpoints: false,
+    		enableResponsiveBreakpoints: true,
     		responsiveBreakpoints: { 
-	    		portrait: { 
-	    			changePoint:480,
-	    			visibleItems: 1
+	    		smallMedQuer: { 
+	    			changePoint:1213,
+	    			visibleItems: 4
 	    		}, 
-	    		landscape: { 
-	    			changePoint:640,
-	    			visibleItems: 2
+	    		middleMedQuer: { 
+	    			changePoint:1450,
+	    			visibleItems: 5
 	    		},
-	    		tablet: { 
-	    			changePoint:768,
-	    			visibleItems: 3
+	    		highMedQuer: { 
+	    			changePoint:1680,
+	    			visibleItems: 6
 	    		}
         	}
         }, options);
-        
 		/******************************
 		Private Variables
-		*******************************/         
-        
+		*******************************/ 
         var object = $(this);
 		var settings = $.extend(defaults, options);        
 		var itemsWidth; // Declare the global width of each item in carousel
@@ -49,23 +45,16 @@
         
 		/******************************
 		Public Methods
-		*******************************/        
-        
-        var methods = {
-        		
+		*******************************/
+        var methods = {        		
 			init: function() {
-				
-        		return this.each(function () {
         			methods.appendHTML();
         			methods.setEventHandlers();      			
         			methods.initializeItems();
-				});
 			},
-
 			/******************************
 			Initialize Items
-			*******************************/			
-			
+			*******************************/
 			initializeItems: function() {
 				
 				var listParent = object.parent();
@@ -83,12 +72,9 @@
 				$(window).trigger("resize"); // needed to position arrows correctly
 
 			},
-			
-			
 			/******************************
 			Append HTML
-			*******************************/			
-			
+			*******************************/
 			appendHTML: function() {
 				
    			 	object.addClass("nbs-flexisel-ul");
@@ -106,8 +92,6 @@
    			 	var cloneContent = object.children().clone();
    			 	object.append(cloneContent);
 			},
-					
-			
 			/******************************
 			Set Event Handlers
 			*******************************/
@@ -135,16 +119,13 @@
 					leftArrow.css("top", arrowMargin + "px");
 					rightArrow.css("top", arrowMargin + "px");
 					
-				});					
-				
+				});
 				$(leftArrow).on("click", function (event) {
 					methods.scrollLeft();
-				});
-				
+				});				
 				$(rightArrow).on("click", function (event) {
 					methods.scrollRight();
-				});
-				
+				});				
 				if(settings.pauseOnHover == true) {
 					$(".nbs-flexisel-item").on({
 						mouseenter: function () {
@@ -155,7 +136,6 @@
 						}
 					 });
 				}
-
 				if(settings.autoPlay == true) {
 					
 					setInterval(function () {
@@ -165,34 +145,30 @@
 				}
 				
 			},
-			
 			/******************************
 			Set Responsive Events
-			*******************************/			
-			
+			*******************************/
 			setResponsiveEvents: function() {
 				var contentWidth = $('html').width();
 				
 				if(settings.enableResponsiveBreakpoints == true) {
-					if(contentWidth < settings.responsiveBreakpoints.portrait.changePoint) {
-						itemsVisible = settings.responsiveBreakpoints.portrait.visibleItems;
+					if(contentWidth < settings.responsiveBreakpoints.smallMedQuer.changePoint) {
+						itemsVisible = settings.responsiveBreakpoints.smallMedQuer.visibleItems;
 					}
-					else if(contentWidth > settings.responsiveBreakpoints.portrait.changePoint && contentWidth < settings.responsiveBreakpoints.landscape.changePoint) {
-						itemsVisible = settings.responsiveBreakpoints.landscape.visibleItems;
+					else if(contentWidth > settings.responsiveBreakpoints.smallMedQuer.changePoint && contentWidth < settings.responsiveBreakpoints.middleMedQuer.changePoint) {
+						itemsVisible = settings.responsiveBreakpoints.middleMedQuer.visibleItems;
 					}
-					else if(contentWidth > settings.responsiveBreakpoints.landscape.changePoint && contentWidth < settings.responsiveBreakpoints.tablet.changePoint) {
-						itemsVisible = settings.responsiveBreakpoints.tablet.visibleItems;
+					else if(contentWidth > settings.responsiveBreakpoints.middleMedQuer.changePoint && contentWidth < settings.responsiveBreakpoints.highMedQuer.changePoint) {
+						itemsVisible = settings.responsiveBreakpoints.highMedQuer.visibleItems;
 					}
 					else {
 						itemsVisible = settings.visibleItems;
 					}
 				}
-			},			
-			
+			},
 			/******************************
 			Scroll Left
-			*******************************/				
-			
+			*******************************/
 			scrollLeft:function() {
 
 				if(canNavigate == true) {
@@ -221,13 +197,10 @@
 					);
 				}
 			},
-			
 			/******************************
 			Scroll Right
-			*******************************/				
-			
-			scrollRight:function() {
-				
+			*******************************/
+			scrollRight:function() {				
 				if(canNavigate == true) {
 					canNavigate = false;
 					
@@ -253,14 +226,11 @@
 						}
 					);
 				}
-			},
-			
+			},			
 			/******************************
 			Adjust Scroll 
-			*******************************/
-			
-			adjustScroll: function() {
-				
+			*******************************/			
+			adjustScroll: function() {				
 				var listParent = object.parent();
 				var childSet = object.children();				
 				
@@ -268,17 +238,15 @@
 				itemsWidth = (innerWidth)/itemsVisible;
 				childSet.width(itemsWidth);
 				object.css({'left' : -itemsWidth});		
-			}			
-        
-        };
-        
+			}        
+        };        
         if (methods[options]) { 	// $("#element").pluginName('methodName', 'arg1', 'arg2');
             return methods[options].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof options === 'object' || !options) { 	// $("#element").pluginName({ option: 1, option:2 });
             return methods.init.apply(this);  
         } else {
             $.error( 'Method "' +  method + '" does not exist in flexisel plugin!');
-        }        
+        }
+    });       
 };
-
 })(jQuery);
