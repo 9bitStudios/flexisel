@@ -9,8 +9,7 @@
 * http://www.opensource.org/licenses/mit-license.php
 */
 (function ($) {
-    $.fn.flexisel = function (options) {
-    	return this.each(function () {
+    $.fn.flexisel = function (options) {    	
         var defaults = $.extend({
     		visibleItems: 7,
     		animationSpeed: 200,
@@ -48,9 +47,11 @@
 		*******************************/
         var methods = {        		
 			init: function() {
+				return this.each(function () {
         			methods.appendHTML();
         			methods.setEventHandlers();      			
         			methods.initializeItems();
+        		});
 			},
 			/******************************
 			Initialize Items
@@ -246,7 +247,6 @@
             return methods.init.apply(this);  
         } else {
             $.error( 'Method "' +  method + '" does not exist in flexisel plugin!');
-        }
-    });       
+        }       
 };
 })(jQuery);

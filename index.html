@@ -18,7 +18,7 @@
 
     <p>Flexisel will adapt responsively as the screen width gets smaller...</p>
 
-    <ul class="flexisel">	
+    <ul class="flexisel" id="flexisel1">	
     	<li><img src="images/logo-nyt.png" /></li>
     	<li><img src="images/logo-microsoft.png" /></li> 	
     	<li><img src="images/logo-ebay.png" /></li> 	
@@ -30,7 +30,7 @@
 <div class="media-queris">
     <p>You can also change the number of items shown depending on the screen width!</p>
 
-    <ul class="flexisel"> 
+    <ul class="flexisel" id="flexisel2"> 
     	<li><img src="images/logo-adidas.png" /></li>  	
     	<li><img src="images/logo-nike.png" /></li> 
     	<li><img src="images/logo-amazon.png" /></li> 
@@ -42,7 +42,7 @@
 <div class="media-queris">
     <p>Other options include autoplay, animation speed when scrolling right and left, initial number of visible items, and more!</p>   
        
-    <ul class="flexisel">
+    <ul class="flexisel" id="flexisel3">
     	<li><img src="images/1.jpg" /></li>
     	<li><img src="images/2.jpg" /></li>
     	<li><img src="images/3.jpg" /></li>
@@ -54,7 +54,9 @@
  <script type="text/javascript">
 
 $(window).load(function() {
-	$(".flexisel").flexisel();
+    $("#flexisel1").flexisel();
+    $("#flexisel2").flexisel();
+	$("#flexisel3").flexisel();
 	// $("#flexiselDemo2").flexisel({
 	// 	enableResponsiveBreakpoints: true,
  //    	responsiveBreakpoints: { 
