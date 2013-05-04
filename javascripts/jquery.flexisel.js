@@ -1,6 +1,6 @@
 /*
 * File: jquery.flexisel.js
-* Version: 1.0.0
+* Version: 1.0.1
 * Description: Responsive carousel jQuery plugin
 * Author: 9bit Studios
 * Copyright 2012, 9bit Studios
@@ -22,6 +22,7 @@
 			setMaxWidthAndHeight: false,
     		enableResponsiveBreakpoints: false,
     		responsiveBreakpoints: { 
+				
 	    		portrait: { 
 	    			changePoint:480,
 	    			visibleItems: 1
@@ -46,7 +47,8 @@
 		var itemsWidth; // Declare the global width of each item in carousel
 		var canNavigate = true; 
         var itemsVisible = settings.visibleItems; 
-        
+        var responsivePoints = [];
+		
 		/******************************
 		Public Methods
 		*******************************/        
@@ -59,6 +61,7 @@
         			methods.appendHTML();
         			methods.setEventHandlers();      			
         			methods.initializeItems();
+					
 				});
 			},
 
@@ -71,6 +74,7 @@
 				var listParent = object.parent();
 				var innerHeight = listParent.height(); 
 				var childSet = object.children();
+				methods.sortResponsiveObject(settings.responsiveBreakpoints);
 				
     			var innerWidth = listParent.width(); // Set widths
     			itemsWidth = (innerWidth)/itemsVisible;
@@ -81,7 +85,7 @@
 
     			object.fadeIn();
 				$(window).trigger("resize"); // needed to position arrows correctly
-
+				
 			},
 			
 			
@@ -174,20 +178,47 @@
 				var contentWidth = $('html').width();
 				
 				if(settings.enableResponsiveBreakpoints == true) {
-					if(contentWidth < settings.responsiveBreakpoints.portrait.changePoint) {
-						itemsVisible = settings.responsiveBreakpoints.portrait.visibleItems;
-					}
-					else if(contentWidth > settings.responsiveBreakpoints.portrait.changePoint && contentWidth < settings.responsiveBreakpoints.landscape.changePoint) {
-						itemsVisible = settings.responsiveBreakpoints.landscape.visibleItems;
-					}
-					else if(contentWidth > settings.responsiveBreakpoints.landscape.changePoint && contentWidth < settings.responsiveBreakpoints.tablet.changePoint) {
-						itemsVisible = settings.responsiveBreakpoints.tablet.visibleItems;
-					}
-					else {
-						itemsVisible = settings.visibleItems;
+					
+					var largestCustom = responsivePoints[responsivePoints.length-1].changePoint; // sorted array 
+					
+					for(var i in responsivePoints) {
+						
+						if(contentWidth >= largestCustom) { // set to default if width greater than largest custom responsiveBreakpoint 
+							itemsVisible = settings.visibleItems;
+							break;
+						}
+						else { // determine custom responsiveBreakpoint to use
+						
+							if(contentWidth < responsivePoints[i].changePoint) {
+								itemsVisible = responsivePoints[i].visibleItems;
+								break;
+							}
+							else
+								continue;
+						}
 					}
 				}
-			},			
+			},
+
+			/******************************
+			Sort Responsive Object
+			*******************************/			
+			
+			sortResponsiveObject: function(obj) {
+				
+				var responsiveObjects = [];
+				
+				for(var i in obj) {
+					responsiveObjects.push(obj[i]);
+				}
+				
+				responsiveObjects.sort(function(a, b) {
+					return a.changePoint - b.changePoint;
+				});
+			
+				responsivePoints = responsiveObjects;
+				console.log(responsivePoints);
+			},				
 			
 			/******************************
 			Scroll Left
