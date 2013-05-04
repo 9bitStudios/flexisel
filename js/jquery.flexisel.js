@@ -217,7 +217,6 @@
 				});
 			
 				responsivePoints = responsiveObjects;
-				console.log(responsivePoints);
 			},				
 			
 			/******************************
