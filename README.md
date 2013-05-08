@@ -78,6 +78,17 @@ For example...
 }
 ```
 
-The landscape responsive breakpoint will be applied when the screen width is greater than the width of the portrait changePoint value, but less that the width of the tablet changePoint value. Likewise, when the screen width falls below the tablet changePoint, the number of visibleItems set for the tablet event will be shown.
+The landscape responsive breakpoint will be applied when the screen width is greater than the width of the portrait changePoint value, but less that the width of the tablet changePoint value. Likewise, when the screen width falls below the tablet changePoint, the number of visibleItems set for the tablet event will be shown. And remember you can pass as many or as few of these as you like in and you can name them whatever you want. So, for example, if you wanted to just have things only show 1 item on all views below a certain width you could pass in something like the following... 
 
+```javascript
+ responsiveBreakpoints: {
+    mobile: {
+      changePoint:768,
+      visibleItems: 1
+    }
+}
+```
 
+And then this will be the only point at which Flexisel changes.
+
+[View Demo](http://9bitstudios.github.com/flexisel/) | [Buy Author a Coffee](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NNCJ79B2W6MUL)
