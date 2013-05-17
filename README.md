@@ -1,5 +1,3 @@
-THIS PROYECT IS FORKED FROM 9bitStudios/flexisel
-
 Flexisel
 ========
 

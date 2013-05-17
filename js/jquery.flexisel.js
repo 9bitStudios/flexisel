@@ -1,252 +1,291 @@
 /*
-* File: jquery.flexisel.js
-* Version: 1.0.0
-* Description: Responsive carousel jQuery plugin
-* Author: 9bit Studios
-* Copyright 2012, 9bit Studios
-* http://www.9bitstudios.com
-* Free to use and abuse under the MIT license.
-* http://www.opensource.org/licenses/mit-license.php
-*/
+ * File: jquery.flexisel.js
+ * Version: 1.0.0
+ * Description: Responsive carousel jQuery plugin
+ * Author: 9bit Studios
+ * Copyright 2012, 9bit Studios
+ * http://www.9bitstudios.com
+ * Free to use and abuse under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ */
 (function ($) {
-    $.fn.flexisel = function (options) {    	
-        var defaults = $.extend({
-    		visibleItems: 7,
-    		animationSpeed: 200,
-    		autoPlay: false,
-    		autoPlaySpeed: 3000,    		
-    		pauseOnHover: true,
-			setMaxWidthAndHeight: false,
-    		enableResponsiveBreakpoints: true,
-    		responsiveBreakpoints: { 
-	    		lowMedQuer: { 
-	    			changePoint:1213,
-	    			visibleItems: 4
-	    		}, 
-	    		middleMedQuer: { 
-	    			changePoint:1450,
-	    			visibleItems: 5
-	    		},
-	    		highMedQuer: { 
-	    			changePoint:1680,
-	    			visibleItems: 6
-	    		}
-        	}
-        }, options);
+	$.fn.flexisel = function(options) {
+		var defaults = $.extend({
+			visibleItems : 7,
+			animationSpeed : 200,
+			autoPlay : false,
+			autoPlaySpeed : 3000,
+			pauseOnHover : true,
+			setMaxWidthAndHeight : false,
+			enableResponsiveBreakpoints : true,
+			clone : true,
+			responsiveBreakpoints : {
+				lowMedQuer : {
+					changePoint : 1213,
+					visibleItems : 4
+				},
+				middleMedQuer : {
+					changePoint : 1450,
+					visibleItems : 5
+				},
+				highMedQuer : {
+					changePoint : 1680,
+					visibleItems : 6
+				}
+			}
+		}, options);
 		/******************************
 		Private Variables
-		*******************************/ 
-        var object = $(this);
-		var settings = $.extend(defaults, options);        
+		 *******************************/
+		var object = $(this);
+		var settings = $.extend(defaults, options);
 		var itemsWidth; // Declare the global width of each item in carousel
-		var canNavigate = true; 
-        var itemsVisible = settings.visibleItems; 
-        
+		var canNavigate = true;
+		var itemsVisible = settings.visibleItems;
+		var totalItems = object.children().length;
+
 		/******************************
 		Public Methods
-		*******************************/
-        var methods = {        		
-			init: function() {
-				return this.each(function () {
-        			methods.appendHTML();
-        			methods.setEventHandlers();      			
-        			methods.initializeItems();
-        		});
+		 *******************************/
+		var methods = {
+			init : function() {
+				return this.each(function() {
+					methods.appendHTML();
+					methods.setEventHandlers();
+					methods.initializeItems();
+				});
 			},
 			/******************************
 			Initialize Items
-			*******************************/
-			initializeItems: function() {
-				
-				var listParent = object.parent();
-				var innerHeight = listParent.height(); 
-				var childSet = object.children();
-				
-    			var innerWidth = listParent.width(); // Set widths
-    			itemsWidth = (innerWidth)/itemsVisible;
-    			childSet.width(itemsWidth);
-    			childSet.last().insertBefore(childSet.first());
-    			childSet.last().insertBefore(childSet.first());
-    			object.css({'left' : -itemsWidth}); 
+			 *******************************/
+			initializeItems : function() {
 
-    			object.fadeIn();
+				var listParent = object.parent();
+				var innerHeight = listParent.height();
+				var childSet = object.children();
+
+				var innerWidth = listParent.width(); // Set widths
+				itemsWidth = (innerWidth) / itemsVisible;
+				childSet.width(itemsWidth);				
+				if (settings.clone) {
+					childSet.last().insertBefore(childSet.first());
+					childSet.last().insertBefore(childSet.first());
+					object.css({
+						'left' : -itemsWidth
+					});
+				}
+
+				object.fadeIn();
 				$(window).trigger("resize"); // needed to position arrows correctly
 
 			},
 			/******************************
 			Append HTML
-			*******************************/
-			appendHTML: function() {
-				
-   			 	object.addClass("nbs-flexisel-ul");
-   			 	object.wrap("<div class='nbs-flexisel-container'><div class='nbs-flexisel-inner'></div></div>");
-   			 	object.find("li").addClass("nbs-flexisel-item");
- 
-   			 	if(settings.setMaxWidthAndHeight) {
-	   			 	var baseWidth = $(".nbs-flexisel-item img").width();
-	   			 	var baseHeight = $(".nbs-flexisel-item img").height();
-	   			 	$(".nbs-flexisel-item img").css("max-width", baseWidth);
-	   			 	$(".nbs-flexisel-item img").css("max-height", baseHeight);
-   			 	}
- 
-   			 	$("<div class='nbs-flexisel-nav-left'></div><div class='nbs-flexisel-nav-right'></div>").insertAfter(object);
-   			 	var cloneContent = object.children().clone();
-   			 	object.append(cloneContent);
+			 *******************************/
+			appendHTML : function() {
+				object.addClass("nbs-flexisel-ul");
+				object.wrap("<div class='nbs-flexisel-container'><div class='nbs-flexisel-inner'></div></div>");
+				object.find("li").addClass("nbs-flexisel-item");
+
+				if (settings.setMaxWidthAndHeight) {
+					var baseWidth = $(".nbs-flexisel-item img").width();
+					var baseHeight = $(".nbs-flexisel-item img").height();
+					$(".nbs-flexisel-item img").css("max-width", baseWidth);
+					$(".nbs-flexisel-item img").css("max-height", baseHeight);
+				}
+				$("<div class='nbs-flexisel-nav-left'></div><div class='nbs-flexisel-nav-right'></div>").insertAfter(object);
+				if (settings.clone) {
+					var cloneContent = object.children().clone();
+					object.append(cloneContent);
+				}
 			},
 			/******************************
 			Set Event Handlers
 			*******************************/
-			setEventHandlers: function() {
-				
+			setEventHandlers : function() {
+
 				var listParent = object.parent();
 				var childSet = object.children();
 				var leftArrow = listParent.find($(".nbs-flexisel-nav-left"));
 				var rightArrow = listParent.find($(".nbs-flexisel-nav-right"));
-				
-				$(window).on("resize", function(event){
-					
+
+				$(window).on("resize", function(event) {
+
 					methods.setResponsiveEvents();
-					
+
 					var innerWidth = $(listParent).width();
-					var innerHeight = $(listParent).height(); 
-					
-					itemsWidth = (innerWidth)/itemsVisible;
-					
+					var innerHeight = $(listParent).height();
+
+					itemsWidth = (innerWidth) / itemsVisible;
+
 					childSet.width(itemsWidth);
-					object.css({'left' : -itemsWidth});
-					
-					var halfArrowHeight = (leftArrow.height())/2;
-					var arrowMargin = (innerHeight/2) - halfArrowHeight;
+					if (settings.clone) {
+						object.css({
+							'left' : -itemsWidth							
+						});
+					}else {
+						object.css({
+							'left' : 0
+						});
+					}
+
+					var halfArrowHeight = (leftArrow.height()) / 2;
+					var arrowMargin = (innerHeight / 2) - halfArrowHeight;
 					leftArrow.css("top", arrowMargin + "px");
 					rightArrow.css("top", arrowMargin + "px");
-					
+
 				});
-				$(leftArrow).on("click", function (event) {
+				$(leftArrow).on("click", function(event) {
 					methods.scrollLeft();
-				});				
-				$(rightArrow).on("click", function (event) {
+				});
+				$(rightArrow).on("click", function(event) {
 					methods.scrollRight();
-				});				
-				if(settings.pauseOnHover == true) {
+				});
+				if (settings.pauseOnHover == true) {
 					$(".nbs-flexisel-item").on({
-						mouseenter: function () {
+						mouseenter : function() {
 							canNavigate = false;
-						}, 
-						mouseleave: function () {
+						},
+						mouseleave : function() {
 							canNavigate = true;
 						}
-					 });
+					});
 				}
-				if(settings.autoPlay == true) {
-					
-					setInterval(function () {
-						if(canNavigate == true)
+				if (settings.autoPlay == true) {
+
+					setInterval(function() {
+						if (canNavigate == true)
 							methods.scrollRight();
 					}, settings.autoPlaySpeed);
 				}
-				
+
 			},
 			/******************************
 			Set Responsive Events
-			*******************************/
-			setResponsiveEvents: function() {
+			 *******************************/
+			setResponsiveEvents : function() {
 				var contentWidth = $('html').width();
-				
-				if(settings.enableResponsiveBreakpoints == true) {
-					if(contentWidth < settings.responsiveBreakpoints.lowMedQuer.changePoint) {
+
+				if (settings.enableResponsiveBreakpoints == true) {
+					if (contentWidth < settings.responsiveBreakpoints.lowMedQuer.changePoint) {
 						itemsVisible = settings.responsiveBreakpoints.lowMedQuer.visibleItems;
-					}
-					else if(contentWidth > settings.responsiveBreakpoints.lowMedQuer.changePoint && contentWidth < settings.responsiveBreakpoints.middleMedQuer.changePoint) {
+					} else if (contentWidth > settings.responsiveBreakpoints.lowMedQuer.changePoint
+							&& contentWidth < settings.responsiveBreakpoints.middleMedQuer.changePoint) {
 						itemsVisible = settings.responsiveBreakpoints.middleMedQuer.visibleItems;
-					}
-					else if(contentWidth > settings.responsiveBreakpoints.middleMedQuer.changePoint && contentWidth < settings.responsiveBreakpoints.highMedQuer.changePoint) {
+					} else if (contentWidth > settings.responsiveBreakpoints.middleMedQuer.changePoint
+							&& contentWidth < settings.responsiveBreakpoints.highMedQuer.changePoint) {
 						itemsVisible = settings.responsiveBreakpoints.highMedQuer.visibleItems;
-					}
-					else {
+					} else {
 						itemsVisible = settings.visibleItems;
 					}
 				}
 			},
 			/******************************
 			Scroll Left
-			*******************************/
-			scrollLeft:function() {
+			 *******************************/
+			scrollLeft : function() {
+				if (object.position().left < 1) {
+					if (canNavigate == true) {
+						canNavigate = false;
 
-				if(canNavigate == true) {
-					canNavigate = false;
-					
-					var listParent = object.parent();
-					var innerWidth = listParent.width();
-					
-					itemsWidth = (innerWidth)/itemsVisible;
-					
-					var childSet = object.children();
-					
-					object.animate({
+						var listParent = object.parent();
+						var innerWidth = listParent.width();
+
+						itemsWidth = (innerWidth) / itemsVisible;
+
+						var childSet = object.children();
+
+						object.animate({
 							'left' : "+=" + itemsWidth
-						},
-						{
-							queue:false, 
-							duration:settings.animationSpeed,
-							easing: "linear",
-							complete: function() {  
-								childSet.last().insertBefore(childSet.first()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)   								
+						}, {
+							queue : false,
+							duration : settings.animationSpeed,
+							easing : "linear",
+							complete : function() {
+								if (settings.clone) {
+									childSet.last().insertBefore(
+											childSet.first()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)   								
+								}
 								methods.adjustScroll();
-								canNavigate = true; 
+								canNavigate = true;
 							}
-						}
-					);
+						});
+					}
 				}
 			},
 			/******************************
 			Scroll Right
-			*******************************/
-			scrollRight:function() {				
-				if(canNavigate == true) {
-					canNavigate = false;
-					
-					var listParent = object.parent();
-					var innerWidth = listParent.width();
-					
-					itemsWidth = (innerWidth)/itemsVisible;
-					
-					var childSet = object.children();
-					
-					object.animate({
+			*******************************/			
+			scrollRight : function() {
+				var listParent = object.parent();
+				var innerWidth = listParent.width();
+
+				itemsWidth = (innerWidth) / itemsVisible;
+
+				var difObject = (itemsWidth - innerWidth);
+				var objPosition = (object.position().left + ((totalItems-itemsVisible)*itemsWidth)-innerWidth);	
+				
+				if((difObject < objPosition) && (!settings.clone)){
+					if (canNavigate == true) {
+						canNavigate = false;					
+	
+						object.animate({
 							'left' : "-=" + itemsWidth
-						},
-						{
-							queue:false, 
-							duration:settings.animationSpeed,
-							easing: "linear",
-							complete: function() {  
-								childSet.first().insertAfter(childSet.last()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)   
+						}, {
+							queue : false,
+							duration : settings.animationSpeed,
+							easing : "linear",
+							complete : function() {								
 								methods.adjustScroll();
-								canNavigate = true; 
+								canNavigate = true;
 							}
-						}
-					);
-				}
-			},			
+						});
+					}
+				}else if(settings.clone){
+					if (canNavigate == true) {
+						canNavigate = false;
+	
+						var childSet = object.children();
+	
+						object.animate({
+							'left' : "-=" + itemsWidth
+						}, {
+							queue : false,
+							duration : settings.animationSpeed,
+							easing : "linear",
+							complete : function() {								
+									childSet.first().insertAfter(childSet.last()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)								
+								methods.adjustScroll();
+								canNavigate = true;
+							}
+						});
+					}
+				};				
+			},
 			/******************************
 			Adjust Scroll 
-			*******************************/			
-			adjustScroll: function() {				
+			 *******************************/
+			adjustScroll : function() {
 				var listParent = object.parent();
-				var childSet = object.children();				
-				
-				var innerWidth = listParent.width(); 
-				itemsWidth = (innerWidth)/itemsVisible;
+				var childSet = object.children();
+
+				var innerWidth = listParent.width();
+				itemsWidth = (innerWidth) / itemsVisible;
 				childSet.width(itemsWidth);
-				object.css({'left' : -itemsWidth});		
-			}        
-        };        
-        if (methods[options]) { 	// $("#element").pluginName('methodName', 'arg1', 'arg2');
-            return methods[options].apply(this, Array.prototype.slice.call(arguments, 1));
-        } else if (typeof options === 'object' || !options) { 	// $("#element").pluginName({ option: 1, option:2 });
-            return methods.init.apply(this);  
-        } else {
-            $.error( 'Method "' +  method + '" does not exist in flexisel plugin!');
-        }       
-};
+				if (settings.clone) {
+					object.css({
+						'left' : -itemsWidth
+					});
+				}
+				;
+			}
+		};
+		if (methods[options]) { // $("#element").pluginName('methodName', 'arg1', 'arg2');
+			return methods[options].apply(this, Array.prototype.slice.call(arguments, 1));
+		} else if (typeof options === 'object' || !options) { // $("#element").pluginName({ option: 1, option:2 });
+			return methods.init.apply(this);
+		} else {
+			$.error('Method "' + method + '" does not exist in flexisel plugin!');
+		}
+	};
 })(jQuery);
