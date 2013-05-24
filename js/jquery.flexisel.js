@@ -20,18 +20,18 @@
 			enableResponsiveBreakpoints : true,
 			clone : true,
 			responsiveBreakpoints : {
-				lowMedQuer : {
-					changePoint : 1213,
-					visibleItems : 4
-				},
-				middleMedQuer : {
-					changePoint : 1450,
-					visibleItems : 5
-				},
-				highMedQuer : {
-					changePoint : 1680,
-					visibleItems : 6
-				}
+				portrait: { 
+	    			changePoint:480,
+	    			visibleItems: 1
+	    		}, 
+	    		landscape: { 
+	    			changePoint:640,
+	    			visibleItems: 2
+	    		},
+	    		tablet: { 
+	    			changePoint:768,
+	    			visibleItems: 3
+	    		}
 			}
 		}, options);
 		/******************************
@@ -41,8 +41,8 @@
 		var settings = $.extend(defaults, options);
 		var itemsWidth; // Declare the global width of each item in carousel
 		var canNavigate = true;
-		var itemsVisible = settings.visibleItems;
-		var totalItems = object.children().length;
+		var itemsVisible = settings.visibleItems; // Get visible items
+		var totalItems = object.children().length; // Get number of elements
 
 		/******************************
 		Public Methods
@@ -66,7 +66,7 @@
 
 				var innerWidth = listParent.width(); // Set widths
 				itemsWidth = (innerWidth) / itemsVisible;
-				childSet.width(itemsWidth);				
+				childSet.width(itemsWidth);		
 				if (settings.clone) {
 					childSet.last().insertBefore(childSet.first());
 					childSet.last().insertBefore(childSet.first());
@@ -167,14 +167,14 @@
 				var contentWidth = $('html').width();
 
 				if (settings.enableResponsiveBreakpoints == true) {
-					if (contentWidth < settings.responsiveBreakpoints.lowMedQuer.changePoint) {
-						itemsVisible = settings.responsiveBreakpoints.lowMedQuer.visibleItems;
-					} else if (contentWidth > settings.responsiveBreakpoints.lowMedQuer.changePoint
-							&& contentWidth < settings.responsiveBreakpoints.middleMedQuer.changePoint) {
-						itemsVisible = settings.responsiveBreakpoints.middleMedQuer.visibleItems;
-					} else if (contentWidth > settings.responsiveBreakpoints.middleMedQuer.changePoint
-							&& contentWidth < settings.responsiveBreakpoints.highMedQuer.changePoint) {
-						itemsVisible = settings.responsiveBreakpoints.highMedQuer.visibleItems;
+					if (contentWidth < settings.responsiveBreakpoints.portrait.changePoint) {
+						itemsVisible = settings.responsiveBreakpoints.portrait.visibleItems;
+					} else if (contentWidth > settings.responsiveBreakpoints.portrait.changePoint
+							&& contentWidth < settings.responsiveBreakpoints.landscape.changePoint) {
+						itemsVisible = settings.responsiveBreakpoints.landscape.visibleItems;
+					} else if (contentWidth > settings.responsiveBreakpoints.landscape.changePoint
+							&& contentWidth < settings.responsiveBreakpoints.tablet.changePoint) {
+						itemsVisible = settings.responsiveBreakpoints.tablet.visibleItems;
 					} else {
 						itemsVisible = settings.visibleItems;
 					}

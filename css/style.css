@@ -1,19 +1,19 @@
 body {
-    background:#fff;
-    font-family:Arial, sans-serif;
+background:#fff;
+font-family:Arial, sans-serif;
 }
 
 p {
-    margin-bottom:20px;
+margin-bottom:20px;
 }
 
 .clearout {
-    height:20px;
-    clear:both;
+height:20px;
+clear:both;
 }
 
-#flexiselDemo1, #flexiselDemo2, #flexiselDemo3, .flexisel {
-    display:none;
+#flexiselDemo1, #flexiselDemo2, #flexiselDemo3 {
+display:none;
 }
 
 .nbs-flexisel-container {
@@ -25,8 +25,8 @@ p {
     width:9999px;
     margin:0px;
     padding:0px;
-    list-style-type:none;	
-    text-align:center;	
+    list-style-type:none;   
+    text-align:center;  
 }
 
 .nbs-flexisel-inner {
@@ -43,7 +43,7 @@ p {
     border:1px solid #ccc;
     border-radius:5px;
     -moz-border-radius:5px;
-    -webkit-border-radius:5px;	
+    -webkit-border-radius:5px;  
 }
 
 .nbs-flexisel-item {
@@ -85,30 +85,3 @@ p {
     right: 5px;
     background: url(../images/button-next.png) no-repeat;
 }
-.media-queris {
-    margin: 0 auto;
-}
-@media (max-width: 1213px) {
-    .media-queris {
-        width: 1012px;
-    }
-}
-
-@media (max-width: 1450px) and (min-width: 1214px) {
-    .media-queris {
-        width: 1245px;
-    }
-}
-
-@media (max-width: 1680px) and (min-width: 1451px) {
-    .media-queris {
-        width: 1478px;
-    }
-}
-
-@media (min-width: 1681px){
-    .media-queris {
-        width: 1712px;
-    }
-}
-
