@@ -67,6 +67,7 @@
 
 			/******************************
 			Initialize Items
+			Set up carousel
 			*******************************/			
 			
 			initializeItems: function() {
@@ -91,6 +92,7 @@
 			
 			/******************************
 			Append HTML
+			Wrap list in markup with classes needed for carousel to function
 			*******************************/			
 			
 			appendHTML: function() {
@@ -114,6 +116,7 @@
 			
 			/******************************
 			Set Event Handlers
+			Set events for carousel
 			*******************************/
 			setEventHandlers: function() {
 				
@@ -149,7 +152,7 @@
 					methods.scrollRight();
 				});
 				
-				if(settings.pauseOnHover == true) {
+				if(settings.pauseOnHover) {
 					$(".nbs-flexisel-item").on({
 						mouseenter: function () {
 							canNavigate = false;
@@ -160,10 +163,10 @@
 					 });
 				}
 
-				if(settings.autoPlay == true) {
+				if(settings.autoPlay) {
 					
 					setInterval(function () {
-						if(canNavigate == true)
+						if(canNavigate)
 							methods.scrollRight();
 					}, settings.autoPlaySpeed);
 				}
@@ -172,12 +175,13 @@
 			
 			/******************************
 			Set Responsive Events
+			Set breakpoints depending on responsiveBreakpoints
 			*******************************/			
 			
 			setResponsiveEvents: function() {
 				var contentWidth = $('html').width();
 				
-				if(settings.enableResponsiveBreakpoints == true) {
+				if(settings.enableResponsiveBreakpoints) {
 					
 					var largestCustom = responsivePoints[responsivePoints.length-1].changePoint; // sorted array 
 					
@@ -202,6 +206,7 @@
 
 			/******************************
 			Sort Responsive Object
+			Gets all the settings in resposiveBreakpoints and sorts them into an array
 			*******************************/			
 			
 			sortResponsiveObject: function(obj) {
@@ -217,16 +222,16 @@
 				});
 			
 				responsivePoints = responsiveObjects;
-				console.log(responsivePoints);
 			},				
 			
 			/******************************
 			Scroll Left
+			Scrolls the carousel to the left
 			*******************************/				
 			
 			scrollLeft:function() {
 
-				if(canNavigate == true) {
+				if(canNavigate) {
 					canNavigate = false;
 					
 					var listParent = object.parent();
@@ -255,11 +260,12 @@
 			
 			/******************************
 			Scroll Right
+			Scrolls the carousel to the right
 			*******************************/				
 			
 			scrollRight:function() {
 				
-				if(canNavigate == true) {
+				if(canNavigate) {
 					canNavigate = false;
 					
 					var listParent = object.parent();
@@ -288,6 +294,7 @@
 			
 			/******************************
 			Adjust Scroll 
+			Needed to position arrows correctly on init and resize
 			*******************************/
 			
 			adjustScroll: function() {
