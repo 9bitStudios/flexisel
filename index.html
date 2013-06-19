@@ -17,12 +17,12 @@
 
 <p>Flexisel will adapt responsively as the screen width gets smaller...</p>
 
-<ul id="flexiselDemo1">	
-	<li><img src="images/logo-nyt.png" /></li>
-	<li><img src="images/logo-microsoft.png" /></li> 	
-	<li><img src="images/logo-ebay.png" /></li> 	
-	<li><img src="images/logo-hp.png" /></li> 
-	<li><img src="images/logo-youtube.png" /></li> 							    	  	       	   	    	
+<ul id="flexiselDemo1"> 
+    <li><img src="images/logo-nyt.png" /></li>
+    <li><img src="images/logo-microsoft.png" /></li>    
+    <li><img src="images/logo-ebay.png" /></li>     
+    <li><img src="images/logo-hp.png" /></li> 
+    <li><img src="images/logo-youtube.png" /></li>                                                          
 </ul>
  
 <div class="clearout"></div> 
@@ -30,11 +30,11 @@
 <p>You can also change the number of items shown depending on the screen width!</p>
 
 <ul id="flexiselDemo2"> 
-	<li><img src="images/logo-adidas.png" /></li>  	
-	<li><img src="images/logo-nike.png" /></li> 
-	<li><img src="images/logo-amazon.png" /></li> 
-	<li><img src="images/logo-spotify.png" /></li> 
-	<li><img src="images/logo-android.png" /></li> 					 						    	  	       	   	    	
+    <li><img src="images/logo-adidas.png" /></li>   
+    <li><img src="images/logo-nike.png" /></li> 
+    <li><img src="images/logo-amazon.png" /></li> 
+    <li><img src="images/logo-spotify.png" /></li> 
+    <li><img src="images/logo-android.png" /></li>                                                                          
 </ul>
        
 <div class="clearout"></div>
@@ -42,57 +42,69 @@
 <p>Other options include autoplay, animation speed when scrolling right and left, initial number of visible items, and more!</p>   
    
 <ul id="flexiselDemo3">
-	<li><img src="images/1.jpg" /></li>
-	<li><img src="images/2.jpg" /></li>
-	<li><img src="images/3.jpg" /></li>
-	<li><img src="images/4.jpg" /></li>					    	  	       	   	    	
+    <li><img src="images/1.jpg" /></li>
+    <li><img src="images/2.jpg" /></li>
+    <li><img src="images/3.jpg" /></li>
+    <li><img src="images/4.jpg" /></li>                                                 
 </ul>    
 
 <div class="clearout"></div>
-    
- <script type="text/javascript">
+<p>Option not clone.</p>   
+   
+<ul id="flexiselDemo4">
+    <li><img src="images/chevrolet.png" /></li>
+    <li><img src="images/ford.png" /></li>
+    <li><img src="images/aston-martin.png" /></li>
+    <li><img src="images/mini.png" /></li>                                                 
+</ul> 
+
+<script type="text/javascript">
 
 $(window).load(function() {
-	$("#flexiselDemo1").flexisel();
-	$("#flexiselDemo2").flexisel({
-		enableResponsiveBreakpoints: true,
-    	responsiveBreakpoints: { 
-    		portrait: { 
-    			changePoint:480,
-    			visibleItems: 1
-    		}, 
-    		landscape: { 
-    			changePoint:640,
-    			visibleItems: 2
-    		},
-    		tablet: { 
-    			changePoint:768,
-    			visibleItems: 3
-    		}
-    	}
+    $("#flexiselDemo1").flexisel();
+    $("#flexiselDemo2").flexisel({
+        enableResponsiveBreakpoints: true,
+        responsiveBreakpoints: { 
+            portrait: { 
+                changePoint:480,
+                visibleItems: 1
+            }, 
+            landscape: { 
+                changePoint:640,
+                visibleItems: 2
+            },
+            tablet: { 
+                changePoint:768,
+                visibleItems: 3
+            }
+        }
     });
 
-	$("#flexiselDemo3").flexisel({
-		visibleItems: 5,
-		animationSpeed: 1000,
-		autoPlay: true,
-		autoPlaySpeed: 3000,    		
-		pauseOnHover: true,
-		enableResponsiveBreakpoints: true,
-    	responsiveBreakpoints: { 
-    		portrait: { 
-    			changePoint:480,
-    			visibleItems: 1
-    		}, 
-    		landscape: { 
-    			changePoint:640,
-    			visibleItems: 2
-    		},
-    		tablet: { 
-    			changePoint:768,
-    			visibleItems: 3
-    		}
-    	}
+    $("#flexiselDemo3").flexisel({
+        visibleItems: 5,
+        animationSpeed: 1000,
+        autoPlay: true,
+        autoPlaySpeed: 3000,            
+        pauseOnHover: true,
+        enableResponsiveBreakpoints: true,
+        responsiveBreakpoints: { 
+            portrait: { 
+                changePoint:480,
+                visibleItems: 1
+            }, 
+            landscape: { 
+                changePoint:640,
+                visibleItems: 2
+            },
+            tablet: { 
+                changePoint:768,
+                visibleItems: 3
+            }
+        }
+    });
+
+    $("#flexiselDemo4").flexisel({
+        clone:false
     });
     
 });

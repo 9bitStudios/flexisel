@@ -54,6 +54,7 @@ autoPlay | Boolean | false | Sets whether or not the carousel automatically scro
 autoPlaySpeed | Integer (in milliseconds) | 3000 | Sets the interval by which items scroll when autoplaying. Note that the autoPlay value has to be set to true for this value to be applicable | autoPlaySpeed: 5000
 pauseOnHover | Boolean | true | Sets whether or not to pause the carousel on hover if playing. Note that the autoPlay value has to be set to true for this to be applicable | pauseOnHover: false
 enableResponsiveBreakpoints | Boolean | false | Sets whether or not to enable responsive breakpoints | enableResponsiveBreakpoints: true
+clone | Boolean | true | Clone the elements (carousel slider) | clone: false
 
 ### Responsive Breakpoints
 
