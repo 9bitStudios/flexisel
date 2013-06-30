@@ -17,12 +17,13 @@ Below is how you'd call it passing in all the options....
 
 ```javascript
 $(window).load(function() {
-  $("#myCarousel").flexisel(
+  $("#myCarousel").flexisel({
     visibleItems: 4,
     animationSpeed: 200,
     autoPlay: false,
     autoPlaySpeed: 3000,
     pauseOnHover: true,
+	clone:false,
     enableResponsiveBreakpoints: true,
     responsiveBreakpoints: {
       portrait: {
@@ -38,7 +39,7 @@ $(window).load(function() {
         visibleItems: 3
       }
     }
-  );
+  });
 });
 ```
 
