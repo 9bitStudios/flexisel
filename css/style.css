@@ -57,7 +57,7 @@ display:none;
 .nbs-flexisel-item img {
     width: 100%;
     cursor: pointer;
-    positon: relative;
+    position: relative;
     margin-top: 10px;
     margin-bottom: 10px;
     max-width:100px;
