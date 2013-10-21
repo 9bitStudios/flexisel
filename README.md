@@ -1,4 +1,53 @@
-Flexisel
+=== Notes to Flexisel Author ==
+
+I was using this great plugin of your and found I needed it as a widget, so that I could control the scrolling and add new elements to the object (with server calls). Therefor I have revised your code and changed it into a widget. 
+
+Please consider this for a future release. If you have any questions please contact me.
+
+    $("#flexiselDemo2").flexiselWidget({
+        enableResponsiveBreakpoints: true,
+        clone: false,
+        visibleItems : 6,
+        onScrollRight: function(){ console.log("right scroll") },
+        onScrollLeft: function(){ console.log("left scroll") },
+        noScrollLeft: function(){ 
+        	console.log("No Scroll Left");
+    		var oChild = $("li:last", this).clone();
+    		$("p:first", oChild).text("PRE");
+    		
+    		$(this).flexiselWidget( "appendChild", "left", oChild );
+        },
+        noScrollRight: function(widget){
+        		var oChild = $("li:last", this).clone();
+        		$("p:first", oChild).text("BLA");
+        		
+        		$(this).flexiselWidget( "appendChild", "right", oChild );
+	    },
+        
+        responsiveBreakpoints: { 
+            portrait: { 
+                changePoint:480,
+                visibleItems: 3
+            }, 
+            landscape: { 
+                changePoint:640,
+                visibleItems: 4
+            },
+            tablet: { 
+                changePoint:768,
+                visibleItems: 6
+            }
+        }
+    });
+
+    
+});
+
+----------
+
+
+
+Flexisel 
 ========
 
 A responsive carousel jQuery plugin...
