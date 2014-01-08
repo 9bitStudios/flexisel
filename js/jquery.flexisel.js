@@ -266,7 +266,7 @@
                 var difObject = (itemsWidth - innerWidth);
                 var objPosition = (object.position().left + ((totalItems-itemsVisible)*itemsWidth)-innerWidth);    
                 
-                if((difObject < Math.ceil(objPosition)) && (!settings.clone)){
+                if((difObject <= Math.ceil(objPosition)) && (!settings.clone)){
                     if (canNavigate == true) {
                         canNavigate = false;                    
     
