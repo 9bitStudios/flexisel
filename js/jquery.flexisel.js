@@ -20,6 +20,7 @@
             setMaxWidthAndHeight : false,
             enableResponsiveBreakpoints : true,
             clone : true,
+            hidenArrows: true,
             responsiveBreakpoints : {
                 portrait: { 
                     changePoint:480,
@@ -143,6 +144,16 @@
                     var arrowMargin = (innerHeight / 2) - halfArrowHeight;
                     leftArrow.css("top", arrowMargin + "px");
                     rightArrow.css("top", arrowMargin + "px");
+
+                    var itensWidht = (itemsWidth * childSet.length);
+                    if (settings.hidenArrows && (itensWidht == listParent.width())) {
+                        leftArrow.hide();
+                        rightArrow.hide();
+                    }
+                    else {
+                        leftArrow.show();
+                        rightArrow.show();
+                    }
 
                 });
                 $(leftArrow).on("click", function(event) {
