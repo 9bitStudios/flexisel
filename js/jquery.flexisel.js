@@ -16,6 +16,7 @@
             animationSpeed : 200,
             autoPlay : false,
             autoPlaySpeed : 3000,
+            stopOnManualScroll : false,
             pauseOnHover : true,
             setMaxWidthAndHeight : false,
             enableResponsiveBreakpoints : true,
@@ -33,16 +34,17 @@
                     changePoint:768,
                     visibleItems: 3
                 }
-            }
+            },
+            onScrollClick: function(event,direction){}
         }, options);
         
         /******************************
         Private Variables
          *******************************/
-         
         var object = $(this);
         var settings = $.extend(defaults, options);
         var itemsWidth; // Declare the global width of each item in carousel
+        var stopIsPermanent = false;//this will determine if the autoscroll has been stopped by the user
         var canNavigate = true;
         var itemsVisible = settings.visibleItems; // Get visible items
         var totalItems = object.children().length; // Get number of elements
@@ -88,8 +90,8 @@
             },
             
 	    /******************************
-            Append HTML
-            Add additional markup needed by plugin to the DOM
+	    Append HTML
+	    Add additional markup needed by plugin to the DOM
 	    *******************************/
             appendHTML : function() {
                 object.addClass("nbs-flexisel-ul");
@@ -146,35 +148,51 @@
 
                 });
                 $(leftArrow).on("click", function(event) {
-                    methods.scrollLeft();
+                    methods.scrollLeft(true);
+                    
+                    if(settings.stopOnManualScroll){
+	                    methods.stopAutoScroll(true);
+                    }
+                    
+                    if(typeof settings.onScrollClick === 'function'){
+	                    settings.onScrollClick(event, -1);
+                    }
                 });
                 $(rightArrow).on("click", function(event) {
-                    methods.scrollRight();
+                    methods.scrollRight(true);
+                    
+                    if(settings.stopOnManualScroll){
+	                    methods.stopAutoScroll(true);
+                    }
+                    
+                    if(typeof settings.onScrollClick === 'function'){
+	                    settings.onScrollClick(event, 1);
+                    }
                 });
                 if (settings.pauseOnHover == true) {
                     $(".nbs-flexisel-item").on({
                         mouseenter : function() {
-                            canNavigate = false;
+                            methods.stopAutoScroll();
                         },
                         mouseleave : function() {
-                            canNavigate = true;
+                            methods.startAutoScroll();
                         }
                     });
                 }
                 if (settings.autoPlay == true) {
 
                     setInterval(function() {
-                        if (canNavigate == true)
+                        if (canNavigate && !stopIsPermanent)
                             methods.scrollRight();
                     }, settings.autoPlaySpeed);
                 }
 
             },
+            
             /******************************
             Set Responsive Events
             Set breakpoints depending on responsiveBreakpoints
             *******************************/            
-            
             setResponsiveEvents: function() {
                 var contentWidth = $('html').width();
                 
@@ -200,6 +218,29 @@
                     }
                 }
             },
+            
+            /******************************
+            Start Auto Scroll
+            Starts the auto scrolling
+            *******************************/ 
+            startAutoScroll: function(){
+	            canNavigate = true;
+            },
+            
+            /******************************
+            Stop Auto Scroll
+            Stops the auto scrolling and forces user to initiate scrolling via buttons
+            *******************************/ 
+            stopAutoScroll: function(manualStop){
+            	manualStop = manualStop ? true : false;
+            	
+            	if(manualStop){
+	            	stopIsPermanent = true;
+            	}
+            	
+	            canNavigate = false;
+            },
+            
 
             /******************************
             Sort Responsive Object
@@ -224,9 +265,10 @@
             /******************************
             Scroll Left
             *******************************/
-            scrollLeft : function() {
+            scrollLeft : function(manualClick) {
+            	manualClick = manualClick ? true : false;
                 if (object.position().left < 0) {
-                    if (canNavigate == true) {
+                    if (manualClick || (canNavigate && !stopIsPermanent)) {
                         canNavigate = false;
 
                         var listParent = object.parent();
@@ -257,7 +299,8 @@
             /******************************
             Scroll Right
             *******************************/            
-            scrollRight : function() {
+            scrollRight : function(manualClick) {
+            	manualClick = manualClick ? true : false;
                 var listParent = object.parent();
                 var innerWidth = listParent.width();
 
@@ -267,7 +310,7 @@
                 var objPosition = (object.position().left + ((totalItems-itemsVisible)*itemsWidth)-innerWidth);    
                 
                 if((difObject <= Math.ceil(objPosition)) && (!settings.clone)){
-                    if (canNavigate == true) {
+                    if (manualClick || (canNavigate && !stopIsPermanent)) {
                         canNavigate = false;                    
     
                         object.animate({
@@ -283,7 +326,7 @@
                         });
                     }
                 } else if(settings.clone){
-                    if (canNavigate == true) {
+                    if (canNavigate && !stopIsPermanent) {
                         canNavigate = false;
     
                         var childSet = object.children();
