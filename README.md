@@ -22,6 +22,7 @@ $(window).load(function() {
     animationSpeed: 200,
     autoPlay: false,
     autoPlaySpeed: 3000,
+    stopOnManualScroll : false,
     pauseOnHover: true,
 	clone:false,
     enableResponsiveBreakpoints: true,
@@ -38,6 +39,13 @@ $(window).load(function() {
         changePoint:768,
         visibleItems: 3
       }
+    },
+    onScrollClick: function(event, direction){
+      if(direction < 0){
+        alert('scrolling left');
+      }else if(direction > 0){
+        alert('scrolling right');
+      }
     }
   });
 });
@@ -53,9 +61,11 @@ visibleItems | Integer | 4 | Sets the initial number of visible items in the car
 animationSpeed | Integer (in Milliseconds) | 200 | Sets the "speed" of the animation when the carousel navigates right or left. | animationSpeed: 1000 
 autoPlay | Boolean | false | Sets whether or not the carousel automatically scrolls items on a timer | autoPlay: true
 autoPlaySpeed | Integer (in milliseconds) | 3000 | Sets the interval by which items scroll when autoplaying. Note that the autoPlay value has to be set to true for this value to be applicable | autoPlaySpeed: 5000
+stopOnManualScroll | Boolean | false | Sets whether or not to stop the auto scrolling after manually clicking the scroll buttons | stopOnManualScroll: true
 pauseOnHover | Boolean | true | Sets whether or not to pause the carousel on hover if playing. Note that the autoPlay value has to be set to true for this to be applicable | pauseOnHover: false
 enableResponsiveBreakpoints | Boolean | false | Sets whether or not to enable responsive breakpoints | enableResponsiveBreakpoints: true
 clone | Boolean | true | Clone the elements (carousel slider) | clone: false
+onScrollClick | callback function | NULL | calls a function with the arguments event and direction. If direction is -1, then the left scroll button was clicked, if direction is 1, then the right scroll button was clicked | onScrollClick: function(event, direction){console.log(direction);}
 
 ### Responsive Breakpoints
 
