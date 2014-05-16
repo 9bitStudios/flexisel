@@ -20,6 +20,7 @@
             setMaxWidthAndHeight : false,
             enableResponsiveBreakpoints : true,
             clone : true,
+            hideArrows : true,
             responsiveBreakpoints : {
                 portrait: { 
                     changePoint:480,
@@ -139,10 +140,18 @@
                         });
                     }
 
-                    var halfArrowHeight = (leftArrow.height()) / 2;
-                    var arrowMargin = (innerHeight / 2) - halfArrowHeight;
-                    leftArrow.css("top", arrowMargin + "px");
-                    rightArrow.css("top", arrowMargin + "px");
+                    // Hide the arrows if the elements are the same of the visible
+                    if (settings.hideArrows === true && totalItems === itemsVisible) {
+                      leftArrow.add(rightArrow).css('visibility', 'hidden');
+                    }
+                    else {
+                      leftArrow.add(rightArrow).css('visibility', 'visible');
+
+                      var halfArrowHeight = (leftArrow.height()) / 2;
+                      var arrowMargin = (innerHeight / 2) - halfArrowHeight;
+                      leftArrow.css("top", arrowMargin + "px");
+                      rightArrow.css("top", arrowMargin + "px");
+                    }
 
                 });
                 $(leftArrow).on("click", function(event) {
