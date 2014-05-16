@@ -176,7 +176,7 @@
             *******************************/            
             
             setResponsiveEvents: function() {
-                var contentWidth = $('html').width();
+                var contentWidth = object.parent().width();
                 
                 if(settings.enableResponsiveBreakpoints) {
                     
@@ -211,7 +211,9 @@
                 var responsiveObjects = [];
                 
                 for(var i in obj) {
-                    responsiveObjects.push(obj[i]);
+                   if (obj.hasOwnProperty(i)) {
+                        responsiveObjects.push(obj[i]);
+                    }
                 }
                 
                 responsiveObjects.sort(function(a, b) {
