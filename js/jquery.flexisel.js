@@ -20,7 +20,6 @@
             setMaxWidthAndHeight : false,
             enableResponsiveBreakpoints : true,
             clone : true,
-            hideArrows : true,
             responsiveBreakpoints : {
                 portrait: { 
                     changePoint:480,
@@ -141,7 +140,7 @@
                     }
 
                     // Hide the arrows if the elements are the same of the visible
-                    if (settings.hideArrows === true && totalItems === itemsVisible) {
+                    if (!settings.clone && totalItems <= itemsVisible) {
                       leftArrow.add(rightArrow).css('visibility', 'hidden');
                     }
                     else {
