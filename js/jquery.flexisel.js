@@ -96,13 +96,15 @@
                 object.wrap("<div class='nbs-flexisel-container'><div class='nbs-flexisel-inner'></div></div>");
                 object.find("li").addClass("nbs-flexisel-item");
 
+                var flexiselInner = object.parent(); // flexisel-inner
+
                 if (settings.setMaxWidthAndHeight) {
                     var baseWidth = $(".nbs-flexisel-item img").width();
                     var baseHeight = $(".nbs-flexisel-item img").height();
                     $(".nbs-flexisel-item img").css("max-width", baseWidth);
                     $(".nbs-flexisel-item img").css("max-height", baseHeight);
                 }
-                $("<div class='nbs-flexisel-nav-left'></div><div class='nbs-flexisel-nav-right'></div>").insertAfter(object);
+                $("<div class='nbs-flexisel-nav-left'></div><div class='nbs-flexisel-nav-right'></div>").insertAfter(flexiselInner);
                 if (settings.clone) {
                     var cloneContent = object.children().clone();
                     object.append(cloneContent);
@@ -115,9 +117,10 @@
             setEventHandlers : function() {
 
                 var listParent = object.parent();
+                var flexiselInner = listParent.parent();
                 var childSet = object.children();
-                var leftArrow = listParent.find($(".nbs-flexisel-nav-left"));
-                var rightArrow = listParent.find($(".nbs-flexisel-nav-right"));
+                var leftArrow = flexiselInner.find(".nbs-flexisel-nav-left");
+                var rightArrow = flexiselInner.find(".nbs-flexisel-nav-right");
 
                 $(window).on("resize", function(event) {
 
