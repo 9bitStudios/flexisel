@@ -19,6 +19,7 @@
             pauseOnHover : true,
             setMaxWidthAndHeight : false,
             enableResponsiveBreakpoints : true,
+            flipPage: false,
             clone : true,
             responsiveBreakpoints : {
                 portrait: { 
@@ -246,9 +247,10 @@
                         itemsWidth = (innerWidth) / itemsVisible;
 
                         var childSet = object.children();
-
+			var increment = (settings.flipPage)? innerWidth: itemsWidth;
+			
                         object.animate({
-                            'left' : "+=" + itemsWidth
+                            'left' : "+=" + increment
                         }, {
                             queue : false,
                             duration : settings.animationSpeed,
@@ -277,12 +279,14 @@
                 var difObject = (itemsWidth - innerWidth);
                 var objPosition = (object.position().left + ((totalItems-itemsVisible)*itemsWidth)-innerWidth);    
                 
+                var increment = (settings.flipPage)? innerWidth: itemsWidth;
+                
                 if((difObject <= Math.ceil(objPosition)) && (!settings.clone)){
                     if (canNavigate == true) {
                         canNavigate = false;                    
     
                         object.animate({
-                            'left' : "-=" + itemsWidth
+                            'left' : "-=" + increment
                         }, {
                             queue : false,
                             duration : settings.animationSpeed,
@@ -300,7 +304,7 @@
                         var childSet = object.children();
     
                         object.animate({
-                            'left' : "-=" + itemsWidth
+                            'left' : "-=" + increment
                         }, {
                             queue : false,
                             duration : settings.animationSpeed,
@@ -324,9 +328,12 @@
                 var innerWidth = listParent.width();
                 itemsWidth = (innerWidth) / itemsVisible;
                 childSet.width(itemsWidth);
+                
+                var increment = (settings.flipPage)? innerWidth: itemsWidth;
+                
                 if (settings.clone) {
                     object.css({
-                        'left' : -itemsWidth
+                        'left' : -increment
                     });
                 }
             }
