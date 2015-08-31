@@ -19,6 +19,7 @@
             pauseOnHover : true,
             setMaxWidthAndHeight : false,
             enableResponsiveBreakpoints : true,
+            flipPage: false,
             clone : true,
             responsiveBreakpoints : {
                 portrait: { 
@@ -96,13 +97,15 @@
                 object.wrap("<div class='nbs-flexisel-container'><div class='nbs-flexisel-inner'></div></div>");
                 object.find("li").addClass("nbs-flexisel-item");
 
+                var flexiselInner = object.parent(); // flexisel-inner
+
                 if (settings.setMaxWidthAndHeight) {
                     var baseWidth = $(".nbs-flexisel-item img").width();
                     var baseHeight = $(".nbs-flexisel-item img").height();
                     $(".nbs-flexisel-item img").css("max-width", baseWidth);
                     $(".nbs-flexisel-item img").css("max-height", baseHeight);
                 }
-                $("<div class='nbs-flexisel-nav-left'></div><div class='nbs-flexisel-nav-right'></div>").insertAfter(object);
+                $("<div class='nbs-flexisel-nav-left'></div><div class='nbs-flexisel-nav-right'></div>").insertAfter(flexiselInner);
                 if (settings.clone) {
                     var cloneContent = object.children().clone();
                     object.append(cloneContent);
@@ -115,9 +118,10 @@
             setEventHandlers : function() {
 
                 var listParent = object.parent();
+                var flexiselInner = listParent.parent();
                 var childSet = object.children();
-                var leftArrow = listParent.find($(".nbs-flexisel-nav-left"));
-                var rightArrow = listParent.find($(".nbs-flexisel-nav-right"));
+                var leftArrow = flexiselInner.find(".nbs-flexisel-nav-left");
+                var rightArrow = flexiselInner.find(".nbs-flexisel-nav-right");
 
                 $(window).on("resize", function(event) {
 
@@ -139,10 +143,18 @@
                         });
                     }
 
-                    var halfArrowHeight = (leftArrow.height()) / 2;
-                    var arrowMargin = (innerHeight / 2) - halfArrowHeight;
-                    leftArrow.css("top", arrowMargin + "px");
-                    rightArrow.css("top", arrowMargin + "px");
+                    // Hide the arrows if the elements are the same of the visible
+                    if (!settings.clone && totalItems <= itemsVisible) {
+                      leftArrow.add(rightArrow).css('visibility', 'hidden');
+                    }
+                    else {
+                      leftArrow.add(rightArrow).css('visibility', 'visible');
+
+                      var halfArrowHeight = (leftArrow.height()) / 2;
+                      var arrowMargin = (innerHeight / 2) - halfArrowHeight;
+                      leftArrow.css("top", arrowMargin + "px");
+                      rightArrow.css("top", arrowMargin + "px");
+                    }
 
                 });
                 $(leftArrow).on("click", function(event) {
@@ -151,7 +163,7 @@
                 $(rightArrow).on("click", function(event) {
                     methods.scrollRight();
                 });
-                if (settings.pauseOnHover == true) {
+                if (settings.pauseOnHover === true) {
                     $(".nbs-flexisel-item").on({
                         mouseenter : function() {
                             canNavigate = false;
@@ -161,13 +173,16 @@
                         }
                     });
                 }
-                if (settings.autoPlay == true) {
+                if (settings.autoPlay === true) {
 
                     setInterval(function() {
-                        if (canNavigate == true)
+                        if (canNavigate === true)
                             methods.scrollRight();
                     }, settings.autoPlaySpeed);
                 }
+                
+                object[0].addEventListener('touchstart', methods.touchHandler.handleTouchStart, false);        
+                object[0].addEventListener('touchmove', methods.touchHandler.handleTouchMove, false);
 
             },
             /******************************
@@ -226,7 +241,7 @@
             *******************************/
             scrollLeft : function() {
                 if (object.position().left < 0) {
-                    if (canNavigate == true) {
+                    if (canNavigate === true) {
                         canNavigate = false;
 
                         var listParent = object.parent();
@@ -235,17 +250,17 @@
                         itemsWidth = (innerWidth) / itemsVisible;
 
                         var childSet = object.children();
-
+			var increment = (settings.flipPage)? innerWidth: itemsWidth;
+			
                         object.animate({
-                            'left' : "+=" + itemsWidth
+                            'left' : "+=" + increment
                         }, {
                             queue : false,
                             duration : settings.animationSpeed,
                             easing : "linear",
                             complete : function() {
                                 if (settings.clone) {
-                                    childSet.last().insertBefore(
-                                            childSet.first()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)                                   
+                                    childSet.last().insertBefore(childSet.first()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)                                   
                                 }
                                 methods.adjustScroll();
                                 canNavigate = true;
@@ -266,12 +281,14 @@
                 var difObject = (itemsWidth - innerWidth);
                 var objPosition = (object.position().left + ((totalItems-itemsVisible)*itemsWidth)-innerWidth);    
                 
-                if((difObject < Math.ceil(objPosition)) && (!settings.clone)){
-                    if (canNavigate == true) {
+                var increment = (settings.flipPage)? innerWidth: itemsWidth;
+                
+                if((difObject <= Math.ceil(objPosition)) && (!settings.clone)){
+                    if (canNavigate === true) {
                         canNavigate = false;                    
     
                         object.animate({
-                            'left' : "-=" + itemsWidth
+                            'left' : "-=" + increment
                         }, {
                             queue : false,
                             duration : settings.animationSpeed,
@@ -283,19 +300,19 @@
                         });
                     }
                 } else if(settings.clone){
-                    if (canNavigate == true) {
+                    if (canNavigate === true) {
                         canNavigate = false;
     
                         var childSet = object.children();
     
                         object.animate({
-                            'left' : "-=" + itemsWidth
+                            'left' : "-=" + increment
                         }, {
                             queue : false,
                             duration : settings.animationSpeed,
                             easing : "linear",
                             complete : function() {                                
-                                    childSet.first().insertAfter(childSet.last()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)                                
+                                childSet.first().insertAfter(childSet.last()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)                                
                                 methods.adjustScroll();
                                 canNavigate = true;
                             }
@@ -313,12 +330,52 @@
                 var innerWidth = listParent.width();
                 itemsWidth = (innerWidth) / itemsVisible;
                 childSet.width(itemsWidth);
+                
+                var increment = (settings.flipPage)? innerWidth: itemsWidth;
+                
                 if (settings.clone) {
                     object.css({
-                        'left' : -itemsWidth
+                        'left' : -increment
                     });
                 }
-            }
+            },
+            touchHandler: {
+
+                xDown: null,
+                yDown: null,
+                handleTouchStart: function(evt) {                                         
+                    this.xDown = evt.touches[0].clientX;                                      
+                    this.yDown = evt.touches[0].clientY;
+                }, 
+                handleTouchMove: function (evt) {
+                    if (!this.xDown || !this.yDown) {
+                        return;
+                    }
+
+                    var xUp = evt.touches[0].clientX;                                    
+                    var yUp = evt.touches[0].clientY;
+
+                    var xDiff = this.xDown - xUp;
+                    var yDiff = this.yDown - yUp;
+                    
+                    // only comparing xDiff
+                    // compare which is greater against yDiff to determine whether left/right or up/down  e.g. if (Math.abs( xDiff ) > Math.abs( yDiff ))
+                    if (Math.abs( xDiff ) > 0) {
+                        if ( xDiff > 0 ) {
+                            // swipe left
+                            methods.scrollRight();
+                        } else {
+                            //swipe right
+                            methods.scrollLeft();
+                        }                       
+                    }
+                    
+                    /* reset values */
+                    this.xDown = null;
+                    this.yDown = null;
+                    canNavigate = true;
+                }
+            }            
         };
         if (methods[options]) { // $("#element").pluginName('methodName', 'arg1', 'arg2');
             return methods[options].apply(this, Array.prototype.slice.call(arguments, 1));
