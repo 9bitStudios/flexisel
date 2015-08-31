@@ -163,7 +163,7 @@
                 $(rightArrow).on("click", function(event) {
                     methods.scrollRight();
                 });
-                if (settings.pauseOnHover == true) {
+                if (settings.pauseOnHover === true) {
                     $(".nbs-flexisel-item").on({
                         mouseenter : function() {
                             canNavigate = false;
@@ -173,13 +173,16 @@
                         }
                     });
                 }
-                if (settings.autoPlay == true) {
+                if (settings.autoPlay === true) {
 
                     setInterval(function() {
-                        if (canNavigate == true)
+                        if (canNavigate === true)
                             methods.scrollRight();
                     }, settings.autoPlaySpeed);
                 }
+                
+                object[0].addEventListener('touchstart', methods.touchHandler.handleTouchStart, false);        
+                object[0].addEventListener('touchmove', methods.touchHandler.handleTouchMove, false);
 
             },
             /******************************
@@ -238,7 +241,7 @@
             *******************************/
             scrollLeft : function() {
                 if (object.position().left < 0) {
-                    if (canNavigate == true) {
+                    if (canNavigate === true) {
                         canNavigate = false;
 
                         var listParent = object.parent();
@@ -257,8 +260,7 @@
                             easing : "linear",
                             complete : function() {
                                 if (settings.clone) {
-                                    childSet.last().insertBefore(
-                                            childSet.first()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)                                   
+                                    childSet.last().insertBefore(childSet.first()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)                                   
                                 }
                                 methods.adjustScroll();
                                 canNavigate = true;
@@ -282,7 +284,7 @@
                 var increment = (settings.flipPage)? innerWidth: itemsWidth;
                 
                 if((difObject <= Math.ceil(objPosition)) && (!settings.clone)){
-                    if (canNavigate == true) {
+                    if (canNavigate === true) {
                         canNavigate = false;                    
     
                         object.animate({
@@ -298,7 +300,7 @@
                         });
                     }
                 } else if(settings.clone){
-                    if (canNavigate == true) {
+                    if (canNavigate === true) {
                         canNavigate = false;
     
                         var childSet = object.children();
@@ -310,7 +312,7 @@
                             duration : settings.animationSpeed,
                             easing : "linear",
                             complete : function() {                                
-                                    childSet.first().insertAfter(childSet.last()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)                                
+                                childSet.first().insertAfter(childSet.last()); // Get the first list item and put it after the last list item (that's how the infinite effects is made)                                
                                 methods.adjustScroll();
                                 canNavigate = true;
                             }
@@ -336,7 +338,44 @@
                         'left' : -increment
                     });
                 }
-            }
+            },
+            touchHandler: {
+
+                xDown: null,
+                yDown: null,
+                handleTouchStart: function(evt) {                                         
+                    this.xDown = evt.touches[0].clientX;                                      
+                    this.yDown = evt.touches[0].clientY;
+                }, 
+                handleTouchMove: function (evt) {
+                    if (!this.xDown || !this.yDown) {
+                        return;
+                    }
+
+                    var xUp = evt.touches[0].clientX;                                    
+                    var yUp = evt.touches[0].clientY;
+
+                    var xDiff = this.xDown - xUp;
+                    var yDiff = this.yDown - yUp;
+                    
+                    // only comparing xDiff
+                    // compare which is greater against yDiff to determine whether left/right or up/down  e.g. if (Math.abs( xDiff ) > Math.abs( yDiff ))
+                    if (Math.abs( xDiff ) > 0) {
+                        if ( xDiff > 0 ) {
+                            // swipe left
+                            methods.scrollRight();
+                        } else {
+                            //swipe right
+                            methods.scrollLeft();
+                        }                       
+                    }
+                    
+                    /* reset values */
+                    this.xDown = null;
+                    this.yDown = null;
+                    canNavigate = true;
+                }
+            }            
         };
         if (methods[options]) { // $("#element").pluginName('methodName', 'arg1', 'arg2');
             return methods[options].apply(this, Array.prototype.slice.call(arguments, 1));
