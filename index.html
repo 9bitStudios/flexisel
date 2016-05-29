@@ -111,45 +111,42 @@
 				$(window).load(function() {
 					$("#flexiselDemo1").flexisel();
 					$("#flexiselDemo2").flexisel({
-						enableResponsiveBreakpoints: true,
-				    	responsiveBreakpoints: { 
-				    		portrait: { 
-				    			changePoint:480,
-				    			visibleItems: 1
-				    		}, 
-				    		landscape: { 
-				    			changePoint:640,
-				    			visibleItems: 2
-				    		},
-				    		tablet: { 
-				    			changePoint:768,
-				    			visibleItems: 3
-				    		}
-				    	}
-				    });
-
+						visibleItems: 4,
+						itemsToScroll: 3,
+						animationSpeed: 200,
+						infinite: true,
+						autoPlay: {
+							enable: false,
+							interval: 5000,
+							pauseOnHover: true
+						},
+						responsiveBreakpoints: { 
+							portrait: { 
+								changePoint:480,
+								visibleItems: 1,
+								itemsToScroll: 1
+							}, 
+							landscape: { 
+								changePoint:640,
+								visibleItems: 2,
+								itemsToScroll: 2
+							},
+							tablet: { 
+								changePoint:768,
+								visibleItems: 3,
+								itemsToScroll: 3
+							}
+						}
+					});
 					$("#flexiselDemo3").flexisel({
-						visibleItems: 5,
-						animationSpeed: 1000,
-						autoPlay: true,
-						autoPlaySpeed: 3000,    		
-						pauseOnHover: true,
-						enableResponsiveBreakpoints: true,
-				    	responsiveBreakpoints: { 
-				    		portrait: { 
-				    			changePoint:480,
-				    			visibleItems: 1
-				    		}, 
-				    		landscape: { 
-				    			changePoint:640,
-				    			visibleItems: 2
-				    		},
-				    		tablet: { 
-				    			changePoint:768,
-				    			visibleItems: 3
-				    		}
-				    	}
-				    });
+						visibleItems: 3,
+						itemsToScroll: 1,         
+						autoPlay: {
+							enable: true,
+							interval: 5000,
+							pauseOnHover: true
+						}        
+					});					
 				    
 				});
 				
