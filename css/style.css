@@ -87,10 +87,18 @@ display:none;
     content: "<"
 }
 
+.nbs-flexisel-nav-left.disabled {
+    opacity: 0.4;
+}
+
 .nbs-flexisel-nav-right {
     right: 5px;    
 }
 
 .nbs-flexisel-nav-right:before {
     content: ">"
+}
+
+.nbs-flexisel-nav-right.disabled {
+    opacity: 0.4;
 }

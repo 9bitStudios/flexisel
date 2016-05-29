@@ -1,5 +1,5 @@
-Flexisel
-========
+Flexisel v2.0
+==============
 
 A responsive carousel jQuery plugin...
 
@@ -19,24 +19,29 @@ Below is how you'd call it passing in all the options....
 $(window).load(function() {
   $("#myCarousel").flexisel({
     visibleItems: 4,
-    animationSpeed: 200,
-    autoPlay: false,
-    autoPlaySpeed: 3000,
-    pauseOnHover: true,
-	clone:false,
-    enableResponsiveBreakpoints: true,
-    responsiveBreakpoints: {
-      portrait: {
+    itemsToScroll: 3,
+    animationSpeed: 400,
+    infinite: true,
+    autoPlay: {
+      enable: false,
+      interval: 5000,
+      pauseOnHover: true
+    },
+    responsiveBreakpoints: { 
+      portrait: { 
         changePoint:480,
-        visibleItems: 1
+        visibleItems: 1,
+        itemsToScroll: 1
       }, 
-      landscape: {
+        landscape: { 
         changePoint:640,
-        visibleItems: 2
+        visibleItems: 2,
+        itemsToScroll: 2
       },
-      tablet: {
+        tablet: { 
         changePoint:768,
-        visibleItems: 3
+        visibleItems: 3,
+        itemsToScroll: 3
       }
     }
   });
@@ -50,12 +55,10 @@ Below is a listing of some basic options you can set...
 | Option | Value | Default Value | Description | Example |
 | --- | --- | --- | --- | --- |
 visibleItems | Integer | 4 | Sets the initial number of visible items in the carousel | visibleItems: 5
-animationSpeed | Integer (in Milliseconds) | 200 | Sets the "speed" of the animation when the carousel navigates right or left. | animationSpeed: 1000 
-autoPlay | Boolean | false | Sets whether or not the carousel automatically scrolls items on a timer | autoPlay: true
-autoPlaySpeed | Integer (in milliseconds) | 3000 | Sets the interval by which items scroll when autoplaying. Note that the autoPlay value has to be set to true for this value to be applicable | autoPlaySpeed: 5000
-pauseOnHover | Boolean | true | Sets whether or not to pause the carousel on hover if playing. Note that the autoPlay value has to be set to true for this to be applicable | pauseOnHover: false
-enableResponsiveBreakpoints | Boolean | false | Sets whether or not to enable responsive breakpoints | enableResponsiveBreakpoints: true
-clone | Boolean | true | Clone the elements (carousel slider) | clone: false
+itemsToScroll | Integer | 3 | Sets the initial number of items that you want to scroll. Note: This value will be overridden by responsive breakpoint settings at smaller or larger screen widths | itemsToScroll: 2
+animationSpeed | Integer (in Milliseconds) | 400 | Sets the "speed" of the animation when the carousel navigates right or left. | animationSpeed: 1000 
+infinite | Boolean | true | Sets whether or not the carousel wraps infinitely | infinite: false
+autoPlay | Object | autoPlay: { enable: false, interval: 5000, pauseOnHover: true } | Values for setting autoplay. The "enable" property must be true for this to apply | autoPlay: { enable: true, interval: 7000, pauseOnHover: false }
 
 ### Responsive Breakpoints
 
@@ -64,19 +67,22 @@ This is an object that specifies responsive breakpoints. In order for this to be
 For example...
 
 ```javascript
- responsiveBreakpoints: {
-    portrait: {
-      changePoint:480,
-      visibleItems: 1
-    }, 
-    landscape: {
-      changePoint:640,
-      visibleItems: 2
-    },
-    tablet: {
-      changePoint:768,
-      visibleItems: 3
-    }
+responsiveBreakpoints: { 
+  portrait: { 
+    changePoint:480,
+    visibleItems: 1,
+    itemsToScroll: 1
+  }, 
+  landscape: { 
+    changePoint:640,
+    visibleItems: 2,
+    itemsToScroll: 2
+  },
+  tablet: { 
+    changePoint:768,
+    visibleItems: 3,
+    itemsToScroll: 3
+  }
 }
 ```
 
@@ -86,7 +92,8 @@ The landscape responsive breakpoint will be applied when the screen width is gre
  responsiveBreakpoints: {
     mobile: {
       changePoint:768,
-      visibleItems: 1
+      visibleItems: 1,
+      itemsToScroll: 1
     }
 }
 ```

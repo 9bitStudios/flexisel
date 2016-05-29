@@ -132,6 +132,8 @@
 								'left': -itemsWidth * Math.floor(childSet.length / 2)
 							});		
 						} else {
+							methods.clearDisabled();
+							listParent.find(".nbs-flexisel-nav-left").addClass('disabled');
 							object.css({
 								'left': 0
 							});
@@ -333,7 +335,11 @@
 			},
 			
 			calculateNonInfiniteLeftScroll: function(toScroll) {
+				
+				var listParent = object.parent()
+				methods.clearDisabled();
 				if(methods.getOffsetPosition() + toScroll >= 0) {
+					listParent.find(".nbs-flexisel-nav-left").addClass('disabled');
 					return 0;
 				} else {
 					return methods.getOffsetPosition() + toScroll;
@@ -341,9 +347,13 @@
 			},
 			
 			calculateNonInfiniteRightScroll: function(toScroll){
+				
+				var listParent = object.parent();
+				methods.clearDisabled();
 				var negativeOffsetLimit = (itemCount * itemsWidth) - (itemsVisible * itemsWidth);
 				
 				if(methods.getOffsetPosition() - toScroll <= -negativeOffsetLimit) {
+					listParent.find(".nbs-flexisel-nav-right").addClass('disabled');
 					return -negativeOffsetLimit;		
 				} else {
 					return methods.getOffsetPosition() - toScroll;
@@ -356,6 +366,12 @@
 						methods.scroll(false);
 					}
 				}, settings.autoPlay.interval);					
+			},
+			
+			clearDisabled: function() {
+				var listParent = object.parent();
+				listParent.find(".nbs-flexisel-nav-left").removeClass('disabled');
+				listParent.find(".nbs-flexisel-nav-right").removeClass('disabled');
 			}						
 			
         };
