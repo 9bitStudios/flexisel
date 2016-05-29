@@ -56,7 +56,6 @@ display:none;
     line-height:0px;
 }
 .nbs-flexisel-item img {
-    width: 100%;
     max-width: 100%;
     cursor: pointer;
     position: relative;
@@ -75,7 +74,7 @@ display:none;
     position: absolute;
     cursor: pointer;
     z-index: 4;
-    top:50%;
+    top:40%;
     background: rgba(0,0,0,0.5);
     color: #fff;     
 }

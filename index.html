@@ -27,7 +27,7 @@
  
 <div class="clearout"></div> 
 
-<p>You can also change the number of items shown depending on the screen width!</p>
+<p>You can also change the number of items shown depending on the screen width and you can set whether you want the slider to be infinite or not.</p>
 
 <ul id="flexiselDemo2"> 
     <li><img src="images/logo-adidas.png" /></li>   
@@ -39,7 +39,7 @@
        
 <div class="clearout"></div>
        
-<p>Other options include autoplay, animation speed when scrolling right and left, initial number of visible items, and more!</p>   
+<p>Other options include autoplay, number of items to scroll, animation speed when scrolling right and left, initial number of visible items, and more!</p>   
    
 <ul id="flexiselDemo3">
     <li><img src="images/1.jpg" /></li>
@@ -56,6 +56,7 @@ $(window).load(function() {
         visibleItems: 4,
         itemsToScroll: 3,
         animationSpeed: 200,
+        infinite: false,
         autoPlay: {
             enable: false,
             interval: 5000,

@@ -17,6 +17,7 @@
     		visibleItems: 4,
 			itemsToScroll: 3,
 			animationSpeed: 400,
+			infinite: true,
 			autoPlay: {
 				enable: false,
 				interval: 5000,
@@ -49,10 +50,12 @@
 		var settings = $.extend(defaults, options);        
 		var itemsWidth;
 		var canNavigate = true; 
+		var itemCount; 
         var itemsVisible = settings.visibleItems; 
 		var itemsToScroll = settings.itemsToScroll;
         var responsivePoints = [];
 		var resizeTimeout;
+		var autoPlayInterval;		
 		
 		/******************************
 		Public Methods
@@ -79,10 +82,12 @@
 				responsivePoints.sort(function(a, b) { return a.changePoint - b.changePoint; });
 				var childSet = object.children();
 				itemsWidth = methods.getCurrentItemWidth();
+				itemCount = childSet.length;
     			childSet.width(itemsWidth);
 				object.css({ 'left': -itemsWidth * (itemsVisible + 1) });
-    			object.fadeIn();
+				object.fadeIn();
 				$(window).trigger('resize');
+				
 			},
 			
 			/******************************
@@ -95,11 +100,14 @@
    			 	object.wrap("<div class='nbs-flexisel-container'><div class='nbs-flexisel-inner'></div></div>");
    			 	object.find("li").addClass("nbs-flexisel-item");
    			 	$("<div class='nbs-flexisel-nav-left'></div><div class='nbs-flexisel-nav-right'></div>").insertAfter(object);
-				var childSet = object.children();
-				var cloneContentBefore = childSet.clone();
-				var cloneContentAfter = childSet.clone();
-				object.prepend(cloneContentBefore);
-				object.append(cloneContentAfter);
+					
+				if(settings.infinite) {	
+					var childSet = object.children();
+					var cloneContentBefore = childSet.clone();
+					var cloneContentAfter = childSet.clone();
+					object.prepend(cloneContentBefore);
+					object.append(cloneContentAfter);
+				}
 				
 			},
 					
@@ -118,9 +126,16 @@
 						methods.calculateDisplay();
 						itemsWidth = methods.getCurrentItemWidth();
 						childSet.width(itemsWidth);
-						object.css({
-							'left': -itemsWidth * Math.floor(childSet.length / 2)
-						});			
+						
+						if(settings.infinite) {
+							object.css({
+								'left': -itemsWidth * Math.floor(childSet.length / 2)
+							});		
+						} else {
+							object.css({
+								'left': 0
+							});
+						}													
 					}, 100);
 					
 				});					
@@ -134,13 +149,9 @@
 				});
 				
 				if(settings.autoPlay.enable) {
-					
-                    setInterval(function() {
-						if (canNavigate) {
-							methods.scroll(false);
-						}
-                    }, settings.autoPlay.interval);					
-					
+
+					methods.setAutoplayInterval();
+
 					if (settings.autoPlay.pauseOnHover === true) {
 						object.on({
 							mouseenter : function() {
@@ -201,17 +212,46 @@
 					canNavigate = false;
 					itemsWidth = methods.getCurrentItemWidth();
 					
-					object.animate({
-						'left' : reverse ? "+=" + itemsWidth * itemsToScroll : "-=" + itemsWidth * itemsToScroll
-					}, settings.animationSpeed, function() {
-						canNavigate = true;
-						if(reverse) { 
-							methods.offsetItemsToBeginning(itemsToScroll); 
+					if(settings.autoPlay.enable) {
+						clearInterval(autoPlayInterval);
+					}
+					
+					if(!settings.infinite) {
+						
+						var scrollDistance = itemsWidth * itemsToScroll;
+						
+						if(reverse) {							
+							object.animate({
+								'left': methods.calculateNonInfiniteLeftScroll(scrollDistance)
+							});							
+							
 						} else {
-							methods.offsetItemsToEnd(itemsToScroll);
+							object.animate({
+								'left': methods.calculateNonInfiniteRightScroll(scrollDistance)
+							});									
 						}
-						methods.offsetSliderPosition(reverse); 
-					});
+						
+						canNavigate = true;
+						
+					} else {					
+						object.animate({
+							'left' : reverse ? "+=" + itemsWidth * itemsToScroll : "-=" + itemsWidth * itemsToScroll
+						}, settings.animationSpeed, function() {
+							canNavigate = true;
+							
+							if(reverse) { 
+								methods.offsetItemsToBeginning(itemsToScroll); 
+							} else {
+								methods.offsetItemsToEnd(itemsToScroll);
+							}
+							methods.offsetSliderPosition(reverse); 
+							
+						});
+					}
+					
+					if(settings.autoPlay.enable) {
+						methods.setAutoplayInterval();
+					}
 					
 				}
 			},
@@ -286,7 +326,37 @@
 				object.css({
 					'left': left
 				});
-			}
+			},
+
+			getOffsetPosition: function() {
+				return parseInt(object.css('left').replace('px', ''));	
+			},
+			
+			calculateNonInfiniteLeftScroll: function(toScroll) {
+				if(methods.getOffsetPosition() + toScroll >= 0) {
+					return 0;
+				} else {
+					return methods.getOffsetPosition() + toScroll;
+				}
+			},
+			
+			calculateNonInfiniteRightScroll: function(toScroll){
+				var negativeOffsetLimit = (itemCount * itemsWidth) - (itemsVisible * itemsWidth);
+				
+				if(methods.getOffsetPosition() - toScroll <= -negativeOffsetLimit) {
+					return -negativeOffsetLimit;		
+				} else {
+					return methods.getOffsetPosition() - toScroll;
+				}
+			},
+			
+			setAutoplayInterval: function(){
+				autoPlayInterval = setInterval(function() {
+					if (canNavigate) {
+						methods.scroll(false);
+					}
+				}, settings.autoPlay.interval);					
+			}						
 			
         };
         
