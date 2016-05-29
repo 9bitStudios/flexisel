@@ -1,5 +1,5 @@
-Flexisel v2.0
-==============
+Flexisel
+========
 
 A responsive carousel jQuery plugin...
 
@@ -22,6 +22,7 @@ $(window).load(function() {
     itemsToScroll: 3,
     animationSpeed: 400,
     infinite: true,
+    navigationTargetSelector: null,
     autoPlay: {
       enable: false,
       interval: 5000,
@@ -58,6 +59,7 @@ visibleItems | Integer | 4 | Sets the initial number of visible items in the car
 itemsToScroll | Integer | 3 | Sets the initial number of items that you want to scroll. Note: This value will be overridden by responsive breakpoint settings at smaller or larger screen widths | itemsToScroll: 2
 animationSpeed | Integer (in Milliseconds) | 400 | Sets the "speed" of the animation when the carousel navigates right or left. | animationSpeed: 1000 
 infinite | Boolean | true | Sets whether or not the carousel wraps infinitely | infinite: false
+navigationTargetSelector | String (selector) | null | The left/right arrows will be added to the element with this selector instead of the default | navigationTargetSelector: '#navigation'
 autoPlay | Object | autoPlay: { enable: false, interval: 5000, pauseOnHover: true } | Values for setting autoplay. The "enable" property must be true for this to apply | autoPlay: { enable: true, interval: 7000, pauseOnHover: false }
 
 ### Responsive Breakpoints
