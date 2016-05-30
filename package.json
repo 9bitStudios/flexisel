@@ -1,6 +1,6 @@
 {
    "name": "flexisel",
-   "version": "2.0.0",
+   "version": "2.1.0",
    "description": "A responsive carousel jQuery plugin",
    "main": "index.js",
    "repository": {
@@ -9,7 +9,8 @@
    },
    "keywords": [
      "flexisel",
-     "images"
+     "images",
+     "carousel"
    ],
    "author": "9bitStudios",
    "license": "MIT",
