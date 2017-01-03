@@ -1,6 +1,6 @@
 /*
 * File: jquery.flexisel.js
-* Version: 2.1.0
+* Version: 2.2.0
 * Description: Responsive carousel jQuery plugin
 * Author: 9bit Studios
 * Copyright 2016, 9bit Studios
@@ -40,7 +40,10 @@
                     visibleItems: 3,
                     itemsToScroll: 3
                 }
-            }
+            },
+            loaded: function(){ },
+            before: function(){ },
+            after: function(){ }
         }, options);
         
         /******************************
@@ -88,6 +91,7 @@
                 object.css({ 'left': -itemsWidth * (itemsVisible + 1) });
                 object.fadeIn();
                 $(window).trigger('resize');
+                settings.loaded.call(this, object);
                 
             },
             
@@ -127,8 +131,10 @@
                 var childSet = object.children();
                 
                 $(window).on("resize", function(event){
+                    canNavigate = false;
                     clearTimeout(resizeTimeout);
                     resizeTimeout = setTimeout(function(){
+                        canNavigate = true;
                         methods.calculateDisplay();
                         itemsWidth = methods.getCurrentItemWidth();
                         childSet.width(itemsWidth);
@@ -218,6 +224,7 @@
 
                 if(canNavigate == true) {
                     canNavigate = false;
+                    settings.before.call(this, object);
                     itemsWidth = methods.getCurrentItemWidth();
                     
                     if(settings.autoPlay.enable) {
@@ -232,6 +239,7 @@
                             object.animate({
                                 'left': methods.calculateNonInfiniteLeftScroll(scrollDistance)
                             }, settings.animationSpeed, function(){
+                                settings.after.call(this, object);
                                 canNavigate = true;
                             });                            
                             
@@ -239,6 +247,7 @@
                             object.animate({
                                 'left': methods.calculateNonInfiniteRightScroll(scrollDistance)
                             },settings.animationSpeed, function(){
+                                settings.after.call(this, object);
                                 canNavigate = true;
                             });                                    
                         }
@@ -249,6 +258,7 @@
                         object.animate({
                             'left' : reverse ? "+=" + itemsWidth * itemsToScroll : "-=" + itemsWidth * itemsToScroll
                         }, settings.animationSpeed, function() {
+                            settings.after.call(this, object);
                             canNavigate = true;
                             
                             if(reverse) { 
@@ -383,7 +393,7 @@
             }                        
             
         };
-        
+
         if (methods[options]) {     // $("#element").pluginName('methodName', 'arg1', 'arg2');
             return methods[options].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof options === 'object' || !options) {     // $("#element").pluginName({ option: 1, option:2 });

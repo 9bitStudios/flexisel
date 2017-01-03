@@ -65,6 +65,7 @@
 
 $(window).load(function() {
     $("#flexiselDemo1").flexisel();
+
     $("#flexiselDemo2").flexisel({
         visibleItems: 4,
         itemsToScroll: 3,
@@ -92,8 +93,18 @@ $(window).load(function() {
                 visibleItems: 3,
                 itemsToScroll: 3
             }
+        },
+        loaded: function(object) {
+            console.log('Slider loaded...');
+        },
+        before: function(object){
+            console.log('Before transition...');
+        },
+        after: function(object) {
+            console.log('After transition...');
         }
     });
+    
     $("#flexiselDemo3").flexisel({
         visibleItems: 3,
         itemsToScroll: 1,         

@@ -61,6 +61,10 @@ animationSpeed | Integer (in Milliseconds) | 400 | Sets the "speed" of the anima
 infinite | Boolean | true | Sets whether or not the carousel wraps infinitely | infinite: false
 navigationTargetSelector | String (selector) | null | The left/right arrows will be added to the element with this selector instead of the default | navigationTargetSelector: '#navigation'
 autoPlay | Object | autoPlay: { enable: false, interval: 5000, pauseOnHover: true } | Values for setting autoplay. The "enable" property must be true for this to apply | autoPlay: { enable: true, interval: 7000, pauseOnHover: false }
+loaded | function | function(object) { } | Callback function that runs after the slider is loaded and initialized. A jQuery reference to the instance of the carousel is passed in as the first argument. | loaded: function(object) { console.log('Slider loaded...'); }
+before | function | function(object) { } | Callback function that runs before a slide transition. A jQuery reference to the instance of the carousel is passed in as the first argument. | before: function(object) { console.log('Before transition...'); }
+after | function | function(object) { } | Callback function that runs after a slide transition. A jQuery reference to the instance of the carousel is passed in as the first argument. | after: function(object) { console.log('After transition...'); }
+
 
 ### Responsive Breakpoints
 
