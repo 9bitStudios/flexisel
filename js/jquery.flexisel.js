@@ -1,6 +1,6 @@
 /*
 * File: jquery.flexisel.js
-* Version: 2.2.0
+* Version: 2.2.1
 * Description: Responsive carousel jQuery plugin
 * Author: 9bit Studios
 * Copyright 2016, 9bit Studios
@@ -85,12 +85,18 @@
                 for(var i in obj) { responsivePoints.push(obj[i]); }
                 responsivePoints.sort(function(a, b) { return a.changePoint - b.changePoint; });
                 var childSet = object.children();
+                childSet.first().addClass("index");
                 itemsWidth = methods.getCurrentItemWidth();
                 itemCount = childSet.length;
                 childSet.width(itemsWidth);
-                object.css({ 'left': -itemsWidth * (itemsVisible + 1) });
+                if(settings.infinite) {
+                    methods.offsetItemsToBeginning(Math.floor(childSet.length / 2)); 
+                    object.css({
+                        'left': -itemsWidth * Math.floor(childSet.length / 2)
+                    }); 
+                }
+                $(window).trigger('resize');              
                 object.fadeIn();
-                $(window).trigger('resize');
                 settings.loaded.call(this, object);
                 
             },
