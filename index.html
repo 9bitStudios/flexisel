@@ -102,6 +102,9 @@ $(window).load(function() {
         },
         after: function(object) {
             console.log('After transition...');
+        },
+        resize: function(object){
+            console.log('After resize...');
         }
     });
     

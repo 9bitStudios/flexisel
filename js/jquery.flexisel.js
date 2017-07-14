@@ -1,6 +1,6 @@
 /*
 * File: jquery.flexisel.js
-* Version: 2.2.1
+* Version: 2.2.2
 * Description: Responsive carousel jQuery plugin
 * Author: 9bit Studios
 * Copyright 2016, 9bit Studios
@@ -43,7 +43,8 @@
             },
             loaded: function(){ },
             before: function(){ },
-            after: function(){ }
+            after: function(){ },
+            resize: function(){ }
         }, options);
         
         /******************************
@@ -133,7 +134,7 @@
             Set Event Handlers
             *******************************/
             setEventHandlers: function() {
-                
+                var self = this;
                 var childSet = object.children();
                 
                 $(window).on("resize", function(event){
@@ -155,7 +156,10 @@
                             object.css({
                                 'left': 0
                             });
-                        }                                                    
+                        }
+                        
+                        settings.resize.call(self, object);
+
                     }, 100);
                     
                 });                    

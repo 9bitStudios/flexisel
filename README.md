@@ -64,6 +64,7 @@ autoPlay | Object | autoPlay: { enable: false, interval: 5000, pauseOnHover: tru
 loaded | function | function(object) { } | Callback function that runs after the slider is loaded and initialized. A jQuery reference to the instance of the carousel is passed in as the first argument. | loaded: function(object) { console.log('Slider loaded...'); }
 before | function | function(object) { } | Callback function that runs before a slide transition. A jQuery reference to the instance of the carousel is passed in as the first argument. | before: function(object) { console.log('Before transition...'); }
 after | function | function(object) { } | Callback function that runs after a slide transition. A jQuery reference to the instance of the carousel is passed in as the first argument. | after: function(object) { console.log('After transition...'); }
+resize | function | function(object) { } | Callback function that runs after a throttled resize event finishes. A jQuery reference to the instance of the carousel is passed in as the first argument. | resize: function(object) { console.log('After resize...'); }
 
 
 ### Responsive Breakpoints
