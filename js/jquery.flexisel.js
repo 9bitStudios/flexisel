@@ -16,6 +16,7 @@
         var defaults = $.extend({
             visibleItems: 4,
             itemsToScroll: 3,
+            draggable: true,
             animationSpeed: 400,
             infinite: true,
             navigationTargetSelector: null,
@@ -189,8 +190,19 @@
                     
                 }
                 
-                object[0].addEventListener('touchstart', methods.touchHandler.handleTouchStart, false);        
-                object[0].addEventListener('touchmove', methods.touchHandler.handleTouchMove, false);                
+                /*
+                If you handle mousedown, mousemove and mouseup then you don't need to handle 
+                the corresponding equivalent events under touch. The same handlers should be executing.
+                mousedown === touchstart
+                mousemove === touchmove
+                mouseup === touchend 
+                https://stackoverflow.com/questions/13510999/when-to-use-touchmove-vs-mousemove
+                */
+                if(settings.draggable){
+                    object[0].addEventListener('mousedown', methods.touchHandler.handleMouseDown, false);  
+                    object[0].addEventListener('mousemove', methods.touchHandler.handleMouseMove, false);
+                    object[0].addEventListener('mouseup', methods.touchHandler.handleMouseUp, false);    
+                }            
                 
             },        
             
@@ -292,39 +304,45 @@
 
                 xDown: null,
                 yDown: null,
-                handleTouchStart: function(evt) {                                         
-                    this.xDown = evt.touches[0].clientX;                                      
-                    this.yDown = evt.touches[0].clientY;
+                handleMouseDown: function(evt) {    
+                    this.xDown = evt.clientX;                                      
+                    this.yDown = evt.clientY;
                 }, 
-                handleTouchMove: function (evt) {
+                handleMouseMove: function (evt) {
+                    
                     if (!this.xDown || !this.yDown) {
                         return;
                     }
 
-                    var xUp = evt.touches[0].clientX;                                    
-                    var yUp = evt.touches[0].clientY;
+                    var cx = evt.clientX;                                    
+                    var cy = evt.clientY;
 
-                    var xDiff = this.xDown - xUp;
-                    var yDiff = this.yDown - yUp;
-                    
-                    // only comparing xDiff
-                    // compare which is greater against yDiff to determine whether left/right or up/down  e.g. if (Math.abs( xDiff ) > Math.abs( yDiff ))
-                    if (Math.abs( xDiff ) > 0) {
+                    var xDiff = this.xDown - cx;
+                    var yDiff = this.yDown - cy;
+
+                    // small arbitrary tolerance to prevent sliding on clicks
+                    if (Math.abs( xDiff ) > 20) {
                         if ( xDiff > 0 ) {
                             // swipe left
                             methods.scroll(false);
                         } else {
                             //swipe right
                             methods.scroll(true);
-                        }                       
+                        }   
+                        /* reset values on successfull scroll */
+                        this.xDown = null;
+                        this.yDown = null;
+                        canNavigate = true;                    
                     }
-                    
-                    /* reset values */
+                },
+                handleMouseUp: function(evt){
+                    /* reset values on mouse up */
                     this.xDown = null;
                     this.yDown = null;
                     canNavigate = true;
                 }
             },            
+          
             
             /******************************
             Utility Functions
