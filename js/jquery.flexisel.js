@@ -16,6 +16,7 @@
         var defaults = $.extend({
             visibleItems: 4,
             itemsToScroll: 3,
+            draggable: true,
             animationSpeed: 400,
             infinite: true,
             navigationTargetSelector: null,
@@ -197,9 +198,11 @@
                 mouseup === touchend 
                 https://stackoverflow.com/questions/13510999/when-to-use-touchmove-vs-mousemove
                 */
-                object[0].addEventListener('mousedown', methods.touchHandler.handleMouseDown, false);  
-                object[0].addEventListener('mousemove', methods.touchHandler.handleMouseMove, false);
-                object[0].addEventListener('mouseup', methods.touchHandler.handleMouseUp, false);                
+                if(settings.draggable){
+                    object[0].addEventListener('mousedown', methods.touchHandler.handleMouseDown, false);  
+                    object[0].addEventListener('mousemove', methods.touchHandler.handleMouseMove, false);
+                    object[0].addEventListener('mouseup', methods.touchHandler.handleMouseUp, false);    
+                }            
                 
             },        
             
