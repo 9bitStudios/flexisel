@@ -7,11 +7,14 @@ A responsive carousel jQuery plugin...
 
 All you have to do is call flexisel on your unordered list containing images. Call it on the 
 
-```$(window).load
-
+```javascript
+$(window).load
+```
 event (as opposed to the
 
-```$(document).ready
+```javascript
+$(document).ready
+```
 
 event so that Flexisel can calculate the width of the images and figure out how to space them out properly. For example...
 
